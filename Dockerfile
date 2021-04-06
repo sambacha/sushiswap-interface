@@ -24,3 +24,9 @@ RUN yarn && yarn run prod
 FROM nginx:1.19
 
 COPY --from=builder /app/build /etc/nginx/
+
+LABEL maintainer="ops@sushilayer.com" \
+    org.opencontainers.image.description="SushiSwap CDN" \
+    org.opencontainers.image.authors="SushiSwap" \
+    org.opencontainers.image.source="https://github.com/sushiswap" \
+    org.opencontainers.image.title="sushilayer-nginx"
