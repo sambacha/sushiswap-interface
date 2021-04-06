@@ -21,7 +21,7 @@ RUN curl -L -o yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v
 
 RUN yarn --version
 
-COPY package-lock.json /app
+COPY yarn.lock /app
 COPY package.json /app
 
 ADD . /app
