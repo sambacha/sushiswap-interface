@@ -12,9 +12,6 @@ ENV NODE_ENV=${NODE_ENV}
 #ENV BLOCK_TIME=${BLOCK_TIME}
 RUN mkdir -p /app
 
-# we need this for package-lock v2 support
-RUN npm install -g npm@7.6.1
-
 COPY package-lock.json /app
 COPY package.json /app
 
