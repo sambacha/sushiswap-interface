@@ -16,21 +16,23 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get npm cache directory
+        id: get-npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
 
-      - name: Get yarn cache directory path
+      - name: Get npm cache directory path
         uses: actions/cache@v2.1.4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: npm-cache # use this to check for `cache-hit` (`steps.npm-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-
+
       - name: webpage install, build, and test
         uses: actions/setup-node@v2.1.5
       - run: |
-          yarn
-          yarn run build
-          yarn run test
+          npm install
+          npm run-script build
+          npm run-script prod 
