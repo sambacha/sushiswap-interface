@@ -12,21 +12,15 @@ ENV NODE_ENV=${NODE_ENV}
 #ENV BLOCK_TIME=${BLOCK_TIME}
 RUN mkdir -p /app
 
-ENV YARN_VERSION 1.22.4
-RUN curl -L -o yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" && \
-	tar -xzf yarn.tar.gz -C /opt/ && \
-	rm yarn.tar.gz && \
-	ln -s /opt/yarn-v${YARN_VERSION}/bin/yarn /usr/local/bin/yarn && \
-	ln -s /opt/yarn-v${YARN_VERSION}/bin/yarnpkg /usr/local/bin/yarnpkg
+# we need this for package-lock v2 support
+RUN npm install -g npm@7.6.1
 
-RUN yarn --version
-
-COPY yarn.lock /app
+COPY package-lock.json /app
 COPY package.json /app
 
 ADD . /app
 WORKDIR /app
-RUN yarn && yarn run prod
+RUN npm ci && npm run-script prod
 
 
 FROM nginx:1.19
