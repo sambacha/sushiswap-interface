@@ -1,4 +1,5 @@
-FROM node:14 as builder
+FROM node:14.16.0-buster AS builder
+EXPOSE 3000
 
 ARG NODE_ENV="production"
 ENV NODE_ENV=${NODE_ENV}
@@ -25,3 +26,5 @@ RUN yarn && yarn run prod
 FROM nginx:1.19
 
 COPY --from=builder /app/build /etc/nginx/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
