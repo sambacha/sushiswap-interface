@@ -11,13 +11,15 @@ ENV NODE_ENV=${NODE_ENV}
 #ARG BLOCK_TIME
 #ENV BLOCK_TIME=${BLOCK_TIME}
 RUN mkdir -p /app
+RUN npm i -g yarn
+RUN yarn --version
 
-COPY package-lock.json /app
+COPY yarn.lock /app
 COPY package.json /app
 
 ADD . /app
 WORKDIR /app
-RUN npm ci && npm run-script prod
+RUN yarn && yarn run prod
 
 
 FROM nginx:1.19
