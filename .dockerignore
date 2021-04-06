@@ -30,9 +30,6 @@ notes.txt
 .idea/
 
 .vscode/
-
-package-lock.json
-
 cypress/videos
 cypress/screenshots
 cypress/fixtures/example.json

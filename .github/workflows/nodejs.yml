@@ -20,6 +20,7 @@ jobs:
       - name: webpage install, build, and test
         uses: actions/setup-node@v2.1.5
       - run: |
+          npm install --global npm@7.6.1
           npm install
           npm run-script build
-          npm run-script prod 
+          npm run-script prod
