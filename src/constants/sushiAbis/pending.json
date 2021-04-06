@@ -8,7 +8,11 @@
     "outputs": [
       {
         "components": [
-          { "internalType": "uint256", "name": "totalAllocPoint", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "totalAllocPoint",
+            "type": "uint256"
+          },
           { "internalType": "uint256", "name": "poolLength", "type": "uint256" }
         ],
         "internalType": "struct BoringSushiPending.PoolsInfo",
@@ -19,8 +23,16 @@
         "components": [
           { "internalType": "uint256", "name": "pid", "type": "uint256" },
           { "internalType": "address", "name": "lpToken", "type": "address" },
-          { "internalType": "uint256", "name": "allocPoint", "type": "uint256" },
-          { "internalType": "uint256", "name": "pendingSushi", "type": "uint256" }
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pendingSushi",
+            "type": "uint256"
+          }
         ],
         "internalType": "struct BoringSushiPending.PoolInfo[]",
         "name": "",

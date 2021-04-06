@@ -1,27 +1,30 @@
-import React, { useState, useCallback } from 'react'
-import { Currency, Pair } from '@sushiswap/sdk'
-import styled from 'styled-components'
-import { darken } from 'polished'
+import React, { useState, useCallback } from 'react';
+import { Currency, Pair } from '@sushiswap/sdk';
+import styled from 'styled-components';
+import { darken } from 'polished';
 
-import { RowBetween } from '../../components/Row'
-import { Input as NumericalInput } from '../../components/NumericalInput'
-import { TYPE } from '../../theme'
+import { RowBetween } from '../../components/Row';
+import { Input as NumericalInput } from '../../components/NumericalInput';
+import { TYPE } from '../../theme';
 
-import { useActiveWeb3React } from '../../hooks'
-import { useTranslation } from 'react-i18next'
-import useTheme from '../../hooks/useTheme'
+import { useActiveWeb3React } from '../../hooks';
+import { useTranslation } from 'react-i18next';
+import useTheme from '../../hooks/useTheme';
 
-import useTokenBalance, { BalanceProps } from '../../sushi-hooks/queries/useTokenBalance'
-import { BigNumber } from '@ethersproject/bignumber'
-import { formatFromBalance, formatToBalance } from '../../utils'
+import useTokenBalance, {
+  BalanceProps,
+} from '../../sushi-hooks/queries/useTokenBalance';
+import { BigNumber } from '@ethersproject/bignumber';
+import { formatFromBalance, formatToBalance } from '../../utils';
 
-import useSaave from '../../sushi-hooks/useSaave'
+import useSaave from '../../sushi-hooks/useSaave';
 
 const InputRow = styled.div<{ selected: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
-  padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
-`
+  padding: ${({ selected }) =>
+    selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem'};
+`;
 
 const ButtonSelect = styled.button`
   align-items: center;
@@ -50,7 +53,7 @@ const ButtonSelect = styled.button`
     opacity: 50%;
     cursor: auto;
   }
-`
+`;
 
 const LabelRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -63,13 +66,13 @@ const LabelRow = styled.div`
     cursor: pointer;
     color: ${({ theme }) => darken(0.2, theme.text2)};
   }
-`
+`;
 
 const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -77,20 +80,26 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
   background-color: ${({ theme }) => theme.bg2};
   z-index: 1;
-`
+`;
 
-const Container = styled.div<{ hideInput: boolean; cornerRadiusTopNone?: boolean; cornerRadiusBottomNone?: boolean }>`
+const Container = styled.div<{
+  hideInput: boolean;
+  cornerRadiusTopNone?: boolean;
+  cornerRadiusBottomNone?: boolean;
+}>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '12px')};
-  border-radius: ${({ cornerRadiusTopNone }) => cornerRadiusTopNone && '0 0 12px 12px'};
-  border-radius: ${({ cornerRadiusBottomNone }) => cornerRadiusBottomNone && '12px 12px 0 0'};
+  border-radius: ${({ cornerRadiusTopNone }) =>
+    cornerRadiusTopNone && '0 0 12px 12px'};
+  border-radius: ${({ cornerRadiusBottomNone }) =>
+    cornerRadiusBottomNone && '12px 12px 0 0'};
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: ${({ theme }) => theme.bg1};
-`
+`;
 
 const StyledButtonName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 auto;' : '  margin: 0 auto;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-`
+`;
 
 const StyledBalanceMax = styled.button`
   height: 28px;
@@ -114,20 +123,20 @@ const StyledBalanceMax = styled.button`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     margin-right: 0.5rem;
   `};
-`
+`;
 
 interface CurrencyInputPanelProps {
-  label?: string
-  lpTokenAddress?: string
-  disableCurrencySelect?: boolean
-  hideBalance?: boolean
-  pair?: Pair | null
-  hideInput?: boolean
-  id: string
-  customBalanceText?: string
-  buttonText?: string
-  cornerRadiusBottomNone?: boolean
-  cornerRadiusTopNone?: boolean
+  label?: string;
+  lpTokenAddress?: string;
+  disableCurrencySelect?: boolean;
+  hideBalance?: boolean;
+  pair?: Pair | null;
+  hideInput?: boolean;
+  id: string;
+  customBalanceText?: string;
+  buttonText?: string;
+  cornerRadiusBottomNone?: boolean;
+  cornerRadiusTopNone?: boolean;
 }
 
 export default function CurrencyInputPanel({
@@ -142,53 +151,61 @@ export default function CurrencyInputPanel({
   cornerRadiusBottomNone,
   cornerRadiusTopNone,
 }: CurrencyInputPanelProps) {
-  const { t } = useTranslation()
-  const { account } = useActiveWeb3React()
-  const theme = useTheme()
+  const { t } = useTranslation();
+  const { account } = useActiveWeb3React();
+  const theme = useTheme();
 
-  const { allowance, approve, saave } = useSaave()
+  const { allowance, approve, saave } = useSaave();
 
-  const sushiBalanceBigInt = useTokenBalance('0x6b3595068778dd592e39a122f4f5a5cf09c90fe2')
-  const sushiBalance = formatFromBalance(sushiBalanceBigInt?.value, sushiBalanceBigInt?.decimals)
-  const decimals = sushiBalanceBigInt?.decimals
+  const sushiBalanceBigInt = useTokenBalance(
+    '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
+  );
+  const sushiBalance = formatFromBalance(
+    sushiBalanceBigInt?.value,
+    sushiBalanceBigInt?.decimals
+  );
+  const decimals = sushiBalanceBigInt?.decimals;
 
-  console.log('sushiBalance:', sushiBalance, sushiBalanceBigInt, decimals)
+  console.log('sushiBalance:', sushiBalance, sushiBalanceBigInt, decimals);
 
   // handle approval
-  const [requestedApproval, setRequestedApproval] = useState(false)
+  const [requestedApproval, setRequestedApproval] = useState(false);
   const handleApprove = useCallback(async () => {
     //console.log("SEEKING APPROVAL");
     try {
-      setRequestedApproval(true)
-      const txHash = await approve()
-      console.log(txHash)
+      setRequestedApproval(true);
+      const txHash = await approve();
+      console.log(txHash);
       // user rejected tx or didn't go thru
       if (!txHash) {
-        setRequestedApproval(false)
+        setRequestedApproval(false);
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }, [approve, setRequestedApproval])
+  }, [approve, setRequestedApproval]);
 
   // disable buttons if pendingTx, todo: styles could be improved
-  const [pendingTx, setPendingTx] = useState(false)
+  const [pendingTx, setPendingTx] = useState(false);
 
   // track and parse user input for Deposit Input
-  const [depositValue, setDepositValue] = useState('')
-  const [maxSelected, setMaxSelected] = useState(false)
-  const onUserDepositInput = useCallback((depositValue: string, max = false) => {
-    setMaxSelected(max)
-    setDepositValue(depositValue)
-  }, [])
+  const [depositValue, setDepositValue] = useState('');
+  const [maxSelected, setMaxSelected] = useState(false);
+  const onUserDepositInput = useCallback(
+    (depositValue: string, max = false) => {
+      setMaxSelected(max);
+      setDepositValue(depositValue);
+    },
+    []
+  );
   // used for max input button
-  const maxDepositAmountInput = sushiBalanceBigInt
+  const maxDepositAmountInput = sushiBalanceBigInt;
   //const atMaxDepositAmount = true
   const handleMaxDeposit = useCallback(() => {
-    maxDepositAmountInput && onUserDepositInput(sushiBalance, true)
-  }, [maxDepositAmountInput, onUserDepositInput, sushiBalance])
+    maxDepositAmountInput && onUserDepositInput(sushiBalance, true);
+  }, [maxDepositAmountInput, onUserDepositInput, sushiBalance]);
 
-  console.log('state:', depositValue, maxSelected)
+  console.log('state:', depositValue, maxSelected);
 
   return (
     <>
@@ -219,17 +236,24 @@ export default function CurrencyInputPanel({
               </RowBetween>
             </LabelRow>
           )}
-          <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
+          <InputRow
+            style={hideInput ? { padding: '0', borderRadius: '8px' } : {}}
+            selected={disableCurrencySelect}
+          >
             {!hideInput && (
               <>
                 <NumericalInput
                   className="token-amount-input"
                   value={depositValue}
                   onUserInput={(val) => {
-                    onUserDepositInput(val)
+                    onUserDepositInput(val);
                   }}
                 />
-                {account && label !== 'To' && <StyledBalanceMax onClick={handleMaxDeposit}>MAX</StyledBalanceMax>}
+                {account && label !== 'To' && (
+                  <StyledBalanceMax onClick={handleMaxDeposit}>
+                    MAX
+                  </StyledBalanceMax>
+                )}
               </>
             )}
             {!allowance || Number(allowance) === 0 ? (
@@ -248,14 +272,14 @@ export default function CurrencyInputPanel({
                   Number(depositValue) > Number(sushiBalance)
                 }
                 onClick={async () => {
-                  setPendingTx(true)
-                  console.log('onClick, maxSelected:', maxSelected)
+                  setPendingTx(true);
+                  console.log('onClick, maxSelected:', maxSelected);
                   if (maxSelected) {
-                    await saave(maxDepositAmountInput)
+                    await saave(maxDepositAmountInput);
                   } else {
-                    await saave(formatToBalance(depositValue, decimals))
+                    await saave(formatToBalance(depositValue, decimals));
                   }
-                  setPendingTx(false)
+                  setPendingTx(false);
                 }}
               >
                 <Aligner>
@@ -281,5 +305,5 @@ export default function CurrencyInputPanel({
         </Container>
       </InputPanel>
     </>
-  )
+  );
 }

@@ -11,7 +11,11 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "collateralSymbol", "type": "string" },
+      {
+        "internalType": "string",
+        "name": "collateralSymbol",
+        "type": "string"
+      },
       { "internalType": "string", "name": "assetSymbol", "type": "string" },
       { "internalType": "uint256", "name": "division", "type": "uint256" }
     ],

@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Redirect, RouteComponentProps } from 'react-router-dom'
-import { AppDispatch } from '../../state'
-import { ApplicationModal, setOpenModal } from '../../state/application/actions'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { AppDispatch } from '../../state';
+import {
+  ApplicationModal,
+  setOpenModal,
+} from '../../state/application/actions';
 
 // Redirects to swap but only replace the pathname
 export function RedirectPathToSwapOnly({ location }: RouteComponentProps) {
-  return <Redirect to={{ ...location, pathname: '/swap' }} />
+  return <Redirect to={{ ...location, pathname: '/swap' }} />;
 }
 
 // Redirects from the /swap/:outputCurrency path to the /swap?outputCurrency=:outputCurrency format
-export function RedirectToSwap(props: RouteComponentProps<{ outputCurrency: string }>) {
+export function RedirectToSwap(
+  props: RouteComponentProps<{ outputCurrency: string }>
+) {
   const {
     location: { search },
     match: {
       params: { outputCurrency },
     },
-  } = props
+  } = props;
 
   return (
     <Redirect
@@ -29,13 +34,15 @@ export function RedirectToSwap(props: RouteComponentProps<{ outputCurrency: stri
             : `?outputCurrency=${outputCurrency}`,
       }}
     />
-  )
+  );
 }
 
-export function OpenClaimAddressModalAndRedirectToSwap(props: RouteComponentProps) {
-  const dispatch = useDispatch<AppDispatch>()
+export function OpenClaimAddressModalAndRedirectToSwap(
+  props: RouteComponentProps
+) {
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(setOpenModal(ApplicationModal.ADDRESS_CLAIM))
-  }, [dispatch])
-  return <RedirectPathToSwapOnly {...props} />
+    dispatch(setOpenModal(ApplicationModal.ADDRESS_CLAIM));
+  }, [dispatch]);
+  return <RedirectPathToSwapOnly {...props} />;
 }

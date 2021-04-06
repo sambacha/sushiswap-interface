@@ -2,15 +2,29 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "OwnershipTransferred",
     "type": "event"
   },
   {
     "inputs": [
-      { "internalType": "contract IFactory", "name": "factory", "type": "address" },
+      {
+        "internalType": "contract IFactory",
+        "name": "factory",
+        "type": "address"
+      },
       { "internalType": "address", "name": "token", "type": "address" }
     ],
     "name": "getETHRate",
@@ -21,7 +35,11 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "pid", "type": "uint256" },
-      { "internalType": "contract IFactory", "name": "factory", "type": "address" }
+      {
+        "internalType": "contract IFactory",
+        "name": "factory",
+        "type": "address"
+      }
     ],
     "name": "getPair",
     "outputs": [
@@ -29,20 +47,60 @@
         "components": [
           { "internalType": "string", "name": "logo", "type": "string" },
           { "internalType": "string", "name": "name", "type": "string" },
-          { "internalType": "contract IPair", "name": "lpToken", "type": "address" },
-          { "internalType": "contract IERC20", "name": "token0", "type": "address" },
-          { "internalType": "contract IERC20", "name": "token1", "type": "address" },
+          {
+            "internalType": "contract IPair",
+            "name": "lpToken",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token1",
+            "type": "address"
+          },
           { "internalType": "string", "name": "token0name", "type": "string" },
           { "internalType": "string", "name": "token1name", "type": "string" },
-          { "internalType": "string", "name": "token0symbol", "type": "string" },
-          { "internalType": "string", "name": "token1symbol", "type": "string" },
-          { "internalType": "uint256", "name": "token0decimals", "type": "uint256" },
-          { "internalType": "uint256", "name": "token1decimals", "type": "uint256" },
-          { "internalType": "uint256", "name": "makerBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
+          {
+            "internalType": "string",
+            "name": "token0symbol",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "token1symbol",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "token0decimals",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "token1decimals",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "makerBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalSupply",
+            "type": "uint256"
+          },
           { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
           { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
-          { "internalType": "uint256", "name": "token0rate", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "token0rate",
+            "type": "uint256"
+          },
           { "internalType": "uint256", "name": "token1rate", "type": "uint256" }
         ],
         "internalType": "struct PairInfo",
@@ -57,7 +115,11 @@
     "inputs": [
       { "internalType": "uint256[]", "name": "pids", "type": "uint256[]" },
       { "internalType": "address", "name": "currency", "type": "address" },
-      { "internalType": "contract IFactory", "name": "factory", "type": "address" }
+      {
+        "internalType": "contract IFactory",
+        "name": "factory",
+        "type": "address"
+      }
     ],
     "name": "getPairs",
     "outputs": [
@@ -66,20 +128,60 @@
         "components": [
           { "internalType": "string", "name": "logo", "type": "string" },
           { "internalType": "string", "name": "name", "type": "string" },
-          { "internalType": "contract IPair", "name": "lpToken", "type": "address" },
-          { "internalType": "contract IERC20", "name": "token0", "type": "address" },
-          { "internalType": "contract IERC20", "name": "token1", "type": "address" },
+          {
+            "internalType": "contract IPair",
+            "name": "lpToken",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token1",
+            "type": "address"
+          },
           { "internalType": "string", "name": "token0name", "type": "string" },
           { "internalType": "string", "name": "token1name", "type": "string" },
-          { "internalType": "string", "name": "token0symbol", "type": "string" },
-          { "internalType": "string", "name": "token1symbol", "type": "string" },
-          { "internalType": "uint256", "name": "token0decimals", "type": "uint256" },
-          { "internalType": "uint256", "name": "token1decimals", "type": "uint256" },
-          { "internalType": "uint256", "name": "makerBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
+          {
+            "internalType": "string",
+            "name": "token0symbol",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "token1symbol",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "token0decimals",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "token1decimals",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "makerBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalSupply",
+            "type": "uint256"
+          },
           { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
           { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
-          { "internalType": "uint256", "name": "token0rate", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "token0rate",
+            "type": "uint256"
+          },
           { "internalType": "uint256", "name": "token1rate", "type": "uint256" }
         ],
         "internalType": "struct PairInfo[]",
@@ -97,7 +199,13 @@
     "stateMutability": "view",
     "type": "function"
   },
-  { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [
       { "internalType": "address", "name": "sushiMaker_", "type": "address" },
@@ -112,7 +220,9 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",

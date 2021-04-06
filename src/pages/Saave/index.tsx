@@ -1,35 +1,35 @@
-import React, { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 
 //import { WrapperNoPadding } from '../../components/swap/styleds'
-import { useDarkModeManager } from '../../state/user/hooks'
-import AppBody from '../AppBody'
-import SaaveHeader from './SaaveHeader'
-import { Wrapper } from '../../components/swap/styleds'
+import { useDarkModeManager } from '../../state/user/hooks';
+import AppBody from '../AppBody';
+import SaaveHeader from './SaaveHeader';
+import { Wrapper } from '../../components/swap/styleds';
 
-import SushiInputPanel from './SushiInputPanel'
-import AXSushiBalancePanel from './AXSushiBalancePanel'
+import SushiInputPanel from './SushiInputPanel';
+import AXSushiBalancePanel from './AXSushiBalancePanel';
 
-import { CardSection, DataCard } from '../../components/earn/styled'
-import { RowBetween } from '../../components/Row'
-import { AutoColumn } from '../../components/Column'
-import { TYPE, ExternalLink } from '../../theme'
-import { transparentize } from 'polished'
+import { CardSection, DataCard } from '../../components/earn/styled';
+import { RowBetween } from '../../components/Row';
+import { AutoColumn } from '../../components/Column';
+import { TYPE, ExternalLink } from '../../theme';
+import { transparentize } from 'polished';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 420px;
   width: 100%;
-`
+`;
 
 const VoteCard = styled(DataCard)`
   background: ${({ theme }) => transparentize(0.5, theme.bg1)};
   overflow: hidden;
   margin-bottom: 10px;
-`
+`;
 
 export default function Saave() {
-  const theme = useContext(ThemeContext)
-  const darkMode = useDarkModeManager()
+  const theme = useContext(ThemeContext);
+  const darkMode = useDarkModeManager();
 
   return (
     <>
@@ -48,7 +48,10 @@ export default function Saave() {
                 </TYPE.white>
               </RowBetween>
               <ExternalLink
-                style={{ color: `${darkMode ? 'white' : 'black'}`, textDecoration: 'underline' }}
+                style={{
+                  color: `${darkMode ? 'white' : 'black'}`,
+                  textDecoration: 'underline',
+                }}
                 target="_blank"
                 href="https://app.ens.domains/name/saave.eth"
               >
@@ -57,7 +60,10 @@ export default function Saave() {
                 </TYPE.white>
               </ExternalLink>
               <ExternalLink
-                style={{ color: `${darkMode ? 'white' : 'black'}`, textDecoration: 'underline' }}
+                style={{
+                  color: `${darkMode ? 'white' : 'black'}`,
+                  textDecoration: 'underline',
+                }}
                 target="_blank"
                 href="https://etherscan.io/address/0x364762c00b32c4b448f39efaa9cefc67a25603ff#code"
               >
@@ -91,5 +97,5 @@ export default function Saave() {
         </AppBody>
       </PageWrapper>
     </>
-  )
+  );
 }

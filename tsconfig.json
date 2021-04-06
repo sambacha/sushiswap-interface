@@ -3,6 +3,7 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "outDir": "dist",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
@@ -22,7 +23,7 @@
     "jsx": "react",
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["react-spring", "jest"],
+    "types": ["react-spring", "jest","react-router-dom", "react-redux", "react-dom", "multicodec"],
     "baseUrl": "src"
   },
   "exclude": ["node_modules", "cypress"],

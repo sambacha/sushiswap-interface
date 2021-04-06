@@ -1,34 +1,47 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styled, { ThemeContext } from 'styled-components'
-import { BigNumber } from '@ethersproject/bignumber'
-import { Link } from 'react-router-dom'
-import { TokenAmount } from '@sushiswap/sdk'
-import { isAddress } from 'ethers/lib/utils'
-import { Text } from 'rebass'
-import Circle from '../../assets/images/blue-loader.svg'
-import tokenLogo from '../../assets/images/token-logo.png'
-import { useActiveWeb3React } from '../../hooks'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useToggleSelfClaimModal } from '../../state/application/hooks'
-import { useClaimCallback, useUserClaimData, useUserUnclaimedAmount } from '../../state/claim/hooks'
-import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import { CloseIcon, CustomLightSpinner, ExternalLink, TYPE, UniTokenAnimated } from '../../theme'
-import { getExplorerLink } from '../../utils'
+import React, { useContext, useEffect, useState } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import { BigNumber } from '@ethersproject/bignumber';
+import { Link } from 'react-router-dom';
+import { TokenAmount } from '@sushiswap/sdk';
+import { isAddress } from 'ethers/lib/utils';
+import { Text } from 'rebass';
+import Circle from '../../assets/images/blue-loader.svg';
+import tokenLogo from '../../assets/images/token-logo.png';
+import { useActiveWeb3React } from '../../hooks';
+import { ApplicationModal } from '../../state/application/actions';
+import {
+  useModalOpen,
+  useToggleSelfClaimModal,
+} from '../../state/application/hooks';
+import {
+  useClaimCallback,
+  useUserClaimData,
+  useUserUnclaimedAmount,
+} from '../../state/claim/hooks';
+import { useUserHasSubmittedClaim } from '../../state/transactions/hooks';
+import {
+  CloseIcon,
+  CustomLightSpinner,
+  ExternalLink,
+  TYPE,
+  UniTokenAnimated,
+} from '../../theme';
+import { getExplorerLink } from '../../utils';
 
-import { ButtonPrimary } from 'components/Button'
-import { AutoColumn } from 'components/Column'
+import { ButtonPrimary } from 'components/Button';
+import { AutoColumn } from 'components/Column';
 //import Confetti from 'components/Confetti'
-import { CardSection, DataCard } from 'components/earn/styled'
-import { RowBetween, AutoRow } from 'components/Row'
-import QuestionHelper from 'components/QuestionHelper'
-import { LightCard } from 'components/Card'
-import Loader from 'components/Loader'
+import { CardSection, DataCard } from 'components/earn/styled';
+import { RowBetween, AutoRow } from 'components/Row';
+import QuestionHelper from 'components/QuestionHelper';
+import { LightCard } from 'components/Card';
+import Loader from 'components/Loader';
 
-import { ChevronRight } from 'react-feather'
-import { transparentize } from 'polished'
+import { ChevronRight } from 'react-feather';
+import { transparentize } from 'polished';
 
-import Fraction from '../../constants/Fraction'
-import { formattedNum } from 'utils'
+import Fraction from '../../constants/Fraction';
+import { formattedNum } from 'utils';
 
 const Dots = styled.span`
   &::after {
@@ -49,85 +62,96 @@ const Dots = styled.span`
       content: '...';
     }
   }
-`
+`;
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 900px;
   width: 100%;
   margin: 0 auto;
-`
+`;
 
 const VoteCard = styled(DataCard)`
   background: ${({ theme }) => transparentize(0.5, theme.bg1)};
   /* border: 1px solid ${({ theme }) => theme.text4}; */
   overflow: hidden;
-`
+`;
 
 export default function ClaimModal() {
-  const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext);
 
-  const isOpen = useModalOpen(ApplicationModal.SELF_CLAIM)
-  const toggleClaimModal = useToggleSelfClaimModal()
+  const isOpen = useModalOpen(ApplicationModal.SELF_CLAIM);
+  const toggleClaimModal = useToggleSelfClaimModal();
 
-  const { account, chainId } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React();
 
   // used for UI loading states
-  const [attempting, setAttempting] = useState<boolean>(false)
+  const [attempting, setAttempting] = useState<boolean>(false);
 
   // get user claim data
   // const userClaimData = useUserClaimData(account)
 
   // monitor the status of the claim from contracts and txns
-  const { claimCallback } = useClaimCallback(account)
-  const unclaimedAmount: TokenAmount | undefined = useUserUnclaimedAmount(account)
-  console.log('unclaimedAmount:', unclaimedAmount)
-  const { claimSubmitted, claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
-  const claimConfirmed = Boolean(claimTxn?.receipt)
+  const { claimCallback } = useClaimCallback(account);
+  const unclaimedAmount: TokenAmount | undefined = useUserUnclaimedAmount(
+    account
+  );
+  console.log('unclaimedAmount:', unclaimedAmount);
+  const { claimSubmitted, claimTxn } = useUserHasSubmittedClaim(
+    account ?? undefined
+  );
+  const claimConfirmed = Boolean(claimTxn?.receipt);
 
   function onClaim() {
-    setAttempting(true)
+    setAttempting(true);
     claimCallback()
       // reset modal and log error
       .catch((error) => {
-        setAttempting(false)
-        console.log(error)
-      })
+        setAttempting(false);
+        console.log(error);
+      });
   }
 
   // once confirmed txn is found, if modal is closed open, mark as not attempting regradless
   useEffect(() => {
     if (claimConfirmed && claimSubmitted && attempting) {
-      setAttempting(false)
+      setAttempting(false);
       if (!isOpen) {
-        toggleClaimModal()
+        toggleClaimModal();
       }
     }
-  }, [attempting, claimConfirmed, claimSubmitted, isOpen, toggleClaimModal])
+  }, [attempting, claimConfirmed, claimSubmitted, isOpen, toggleClaimModal]);
 
-  const [totalLocked, setTotalLocked] = useState<string>()
+  const [totalLocked, setTotalLocked] = useState<string>();
   useEffect(() => {
     const fetchLockup = async () => {
       if (account) {
-        fetch('https://raw.githubusercontent.com/sushiswap/sushi-vesting/master/amounts-10959148-12171394.json')
+        fetch(
+          'https://raw.githubusercontent.com/sushiswap/sushi-vesting/master/amounts-10959148-12171394.json'
+        )
           .then((response) => response.json())
           .then((data) => {
             //console.log('vesting:', data)
-            const userLockedAmount = data[account.toLowerCase()] ? data[account.toLowerCase()] : '0'
-            const userLocked = Fraction.from(BigNumber.from(userLockedAmount), BigNumber.from(10).pow(18)).toString()
-            setTotalLocked(userLocked)
+            const userLockedAmount = data[account.toLowerCase()]
+              ? data[account.toLowerCase()]
+              : '0';
+            const userLocked = Fraction.from(
+              BigNumber.from(userLockedAmount),
+              BigNumber.from(10).pow(18)
+            ).toString();
+            setTotalLocked(userLocked);
             //console.log('userLocked:', userLocked)
           })
           .catch((error) => {
-            console.log(error)
-          })
+            console.log(error);
+          });
       }
-      return []
-    }
-    fetchLockup()
-  }, [account])
+      return [];
+    };
+    fetchLockup();
+  }, [account]);
 
   // remove once treasury signature passed
-  const pendingTreasurySignature = true
+  const pendingTreasurySignature = true;
 
   return (
     <PageWrapper>
@@ -146,8 +170,12 @@ export default function ClaimModal() {
                     Community Approval
                   </TYPE.white>
                 </RowBetween>
-                <div className="text-sm text-gray-400 pt-2" style={{ maxWidth: '300px', minHeight: '150px' }}>
-                  Vesting is executed within the guidelines selected by the community in{' '}
+                <div
+                  className="text-sm text-gray-400 pt-2"
+                  style={{ maxWidth: '300px', minHeight: '150px' }}
+                >
+                  Vesting is executed within the guidelines selected by the
+                  community in{' '}
                   <a
                     target="_blank"
                     rel="noreferrer noopener"
@@ -170,7 +198,11 @@ export default function ClaimModal() {
                   <br />
                   <br />
                   Additional records and weekly merkle updates can be found on{' '}
-                  <a target="_blank" rel="noreferrer noopener" href="https://github.com/sushiswap/sushi-vesting">
+                  <a
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    href="https://github.com/sushiswap/sushi-vesting"
+                  >
                     Github
                   </a>
                 </div>
@@ -187,15 +219,36 @@ export default function ClaimModal() {
                   <QuestionHelper text="Your Vested SUSHI will be released each week for the next 6 months. The amount released each week is determined by your historical farming rewards. You do not need to harvest each week as unclaimed amounts from each week will continue to accrue onto the next." />
                 </RowBetween>
                 <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                  <TYPE.white fontWeight={700} fontSize={36} color={theme.text1}>
-                    {unclaimedAmount?.toFixed(4, { groupSeparator: ',' } ?? '-')}
+                  <TYPE.white
+                    fontWeight={700}
+                    fontSize={36}
+                    color={theme.text1}
+                  >
+                    {unclaimedAmount?.toFixed(
+                      4,
+                      { groupSeparator: ',' } ?? '-'
+                    )}
                   </TYPE.white>
                   {account ? (
-                    <TYPE.white fontWeight={700} fontSize={14} color={theme.text3} marginLeft={10}>
-                      {totalLocked ? `/ ${formattedNum(totalLocked)} SUSHI` : <Dots>/ Fetching Total</Dots>}
+                    <TYPE.white
+                      fontWeight={700}
+                      fontSize={14}
+                      color={theme.text3}
+                      marginLeft={10}
+                    >
+                      {totalLocked ? (
+                        `/ ${formattedNum(totalLocked)} SUSHI`
+                      ) : (
+                        <Dots>/ Fetching Total</Dots>
+                      )}
                     </TYPE.white>
                   ) : (
-                    <TYPE.white fontWeight={700} fontSize={14} color={theme.text3} marginLeft={10}>
+                    <TYPE.white
+                      fontWeight={700}
+                      fontSize={14}
+                      color={theme.text3}
+                      marginLeft={10}
+                    >
                       / Connect Wallet
                     </TYPE.white>
                   )}
@@ -221,7 +274,9 @@ export default function ClaimModal() {
                     <> {claimConfirmed ? 'Claimed' : 'Claim SUSHI'}</>
                   )}
 
-                  {attempting && <Loader stroke="white" style={{ marginLeft: '10px' }} />}
+                  {attempting && (
+                    <Loader stroke="white" style={{ marginLeft: '10px' }} />
+                  )}
                 </ButtonPrimary>
               </CardSection>
             </VoteCard>
@@ -232,16 +287,23 @@ export default function ClaimModal() {
                     Things you can do with your SUSHI
                   </TYPE.white>
                 </RowBetween>
-                <LightCard as={Link} to={`/stake`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                <LightCard
+                  as={Link}
+                  to={`/stake`}
+                  style={{ color: 'inherit', textDecoration: 'none' }}
+                >
                   <AutoColumn gap="12px">
                     <RowBetween>
                       <AutoRow>
                         <AutoRow marginBottom="2px">
-                          <TYPE.body fontWeight={500}>Stake SUSHI for xSUSHI</TYPE.body>
+                          <TYPE.body fontWeight={500}>
+                            Stake SUSHI for xSUSHI
+                          </TYPE.body>
                         </AutoRow>
                         <AutoRow>
                           <TYPE.darkGray fontSize=".75rem">
-                            Gain governance rights with xSUSHI and earn 5% APR (0.05% of all swaps from all chains)
+                            Gain governance rights with xSUSHI and earn 5% APR
+                            (0.05% of all swaps from all chains)
                           </TYPE.darkGray>
                         </AutoRow>
                       </AutoRow>
@@ -249,16 +311,23 @@ export default function ClaimModal() {
                     </RowBetween>
                   </AutoColumn>
                 </LightCard>
-                <LightCard as={Link} to={`/saave`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                <LightCard
+                  as={Link}
+                  to={`/saave`}
+                  style={{ color: 'inherit', textDecoration: 'none' }}
+                >
                   <AutoColumn gap="12px">
                     <RowBetween>
                       <AutoRow>
                         <AutoRow marginBottom="2px">
-                          <TYPE.body fontWeight={500}>Stack Yields with SAAVE</TYPE.body>
+                          <TYPE.body fontWeight={500}>
+                            Stack Yields with SAAVE
+                          </TYPE.body>
                         </AutoRow>
                         <AutoRow>
                           <TYPE.darkGray fontSize=".75rem">
-                            Stake into xSUSHI add collateral as axSUSHI on Aave all in one click
+                            Stake into xSUSHI add collateral as axSUSHI on Aave
+                            all in one click
                           </TYPE.darkGray>
                         </AutoRow>
                       </AutoRow>
@@ -271,11 +340,14 @@ export default function ClaimModal() {
                     <RowBetween>
                       <AutoRow>
                         <AutoRow marginBottom="2px">
-                          <TYPE.body fontWeight={500}>Deposit SUSHI into BentoBox</TYPE.body>
+                          <TYPE.body fontWeight={500}>
+                            Deposit SUSHI into BentoBox
+                          </TYPE.body>
                         </AutoRow>
                         <AutoRow>
                           <TYPE.darkGray fontSize=".75rem">
-                            (COMING SOON) Accrue automatic yield through flash loans and SUSHI strategies
+                            (COMING SOON) Accrue automatic yield through flash
+                            loans and SUSHI strategies
                           </TYPE.darkGray>
                         </AutoRow>
                       </AutoRow>
@@ -289,5 +361,5 @@ export default function ClaimModal() {
         </div>
       </>
     </PageWrapper>
-  )
+  );
 }

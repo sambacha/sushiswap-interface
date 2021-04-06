@@ -1,1 +1,9 @@
-[{ "inputs": [], "name": "drip", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
+[
+  {
+    "inputs": [],
+    "name": "drip",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

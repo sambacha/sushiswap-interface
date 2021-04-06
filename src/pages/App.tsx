@@ -1,61 +1,65 @@
-import React, { Suspense } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { ChainId } from '@sushiswap/sdk'
-import { useActiveWeb3React } from '../hooks/index'
-import styled from 'styled-components'
-import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
+import React, { Suspense } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { ChainId } from '@sushiswap/sdk';
+import { useActiveWeb3React } from '../hooks/index';
+import styled from 'styled-components';
+import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter';
 
-import Header from '../components/Header'
-import Polling from '../components/Header/Polling'
-import URLWarning from '../components/Header/URLWarning'
-import Popups from '../components/Popups'
-import Web3ReactManager from '../components/Web3ReactManager'
-import { ApplicationModal } from '../state/application/actions'
-import { useModalOpen, useToggleModal } from '../state/application/hooks'
-import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
-import AddLiquidity from './AddLiquidity'
+import Header from '../components/Header';
+import Polling from '../components/Header/Polling';
+import URLWarning from '../components/Header/URLWarning';
+import Popups from '../components/Popups';
+import Web3ReactManager from '../components/Web3ReactManager';
+import { ApplicationModal } from '../state/application/actions';
+import { useModalOpen, useToggleModal } from '../state/application/hooks';
+import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader';
+import AddLiquidity from './AddLiquidity';
 import {
   RedirectDuplicateTokenIds,
   RedirectOldAddLiquidityPathStructure,
   RedirectToAddLiquidity,
-} from './AddLiquidity/redirects'
+} from './AddLiquidity/redirects';
 //import Earn from './Earn'
 //import Manage from './Earn/Manage'
 //import MigrateV1 from './MigrateV1'
 //import MigrateV1Exchange from './MigrateV1/MigrateV1Exchange'
-import RemoveV1Exchange from './MigrateV1/RemoveV1Exchange'
-import Pool from './Pool'
-import PoolFinder from './PoolFinder'
-import RemoveLiquidity from './RemoveLiquidity'
-import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
-import Swap from './Swap'
-import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
+import RemoveV1Exchange from './MigrateV1/RemoveV1Exchange';
+import Pool from './Pool';
+import PoolFinder from './PoolFinder';
+import RemoveLiquidity from './RemoveLiquidity';
+import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects';
+import Swap from './Swap';
+import {
+  OpenClaimAddressModalAndRedirectToSwap,
+  RedirectPathToSwapOnly,
+  RedirectToSwap,
+} from './Swap/redirects';
 //import Vote from './Vote'
 //import VotePage from './Vote/VotePage'
 
-import SushiBar from './SushiBar'
+import SushiBar from './SushiBar';
 
 // Additional Tools
-import Tools from './Tools'
-import Saave from './Saave'
-import Vesting from './Vesting'
+import Tools from './Tools';
+import Saave from './Saave';
+import Vesting from './Vesting';
 
-import ComingSoonModal from '../components/ComingSoonModal'
+import ComingSoonModal from '../components/ComingSoonModal';
 
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader';
 
 const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
   align-items: flex-start;
   overflow-x: hidden;
-`
+`;
 
 const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: space-between;
-`
+`;
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -74,14 +78,14 @@ const BodyWrapper = styled.div`
   `};
 
   z-index: 1;
-`
+`;
 
 const Marginer = styled.div`
   margin-top: 5rem;
-`
+`;
 
 function App() {
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
@@ -101,27 +105,84 @@ function App() {
               <Route exact strict path="/saave" component={Saave} />
               <Route exact strict path="/vesting" component={Vesting} />
               {/* Pages */}
-              {chainId === ChainId.MAINNET && <Route exact strict path="/stake" component={SushiBar} />}
-              <Route exact path="/sushibar" render={() => <Redirect to="/stake" />} />
+              {chainId === ChainId.MAINNET && (
+                <Route exact strict path="/stake" component={SushiBar} />
+              )}
+              <Route
+                exact
+                path="/sushibar"
+                render={() => <Redirect to="/stake" />}
+              />
               {/* Pages */}
               <Route exact strict path="/swap" component={Swap} />
-              <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-              <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
-              <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
+              <Route
+                exact
+                strict
+                path="/claim"
+                component={OpenClaimAddressModalAndRedirectToSwap}
+              />
+              <Route
+                exact
+                strict
+                path="/swap/:outputCurrency"
+                component={RedirectToSwap}
+              />
+              <Route
+                exact
+                strict
+                path="/send"
+                component={RedirectPathToSwapOnly}
+              />
               <Route exact strict path="/find" component={PoolFinder} />
               <Route exact strict path="/pool" component={Pool} />
               {/* <Route exact strict path="/sushi" component={Earn} /> */}
               {/* <Route exact strict path="/vote" component={Vote} /> */}
-              <Route exact strict path="/create" component={RedirectToAddLiquidity} />
+              <Route
+                exact
+                strict
+                path="/create"
+                component={RedirectToAddLiquidity}
+              />
               <Route exact path="/add" component={AddLiquidity} />
-              <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+              <Route
+                exact
+                path="/add/:currencyIdA"
+                component={RedirectOldAddLiquidityPathStructure}
+              />
+              <Route
+                exact
+                path="/add/:currencyIdA/:currencyIdB"
+                component={RedirectDuplicateTokenIds}
+              />
               <Route exact path="/create" component={AddLiquidity} />
-              <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-              <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
-              <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
-              <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
+              <Route
+                exact
+                path="/create/:currencyIdA"
+                component={RedirectOldAddLiquidityPathStructure}
+              />
+              <Route
+                exact
+                path="/create/:currencyIdA/:currencyIdB"
+                component={RedirectDuplicateTokenIds}
+              />
+              <Route
+                exact
+                strict
+                path="/remove/v1/:address"
+                component={RemoveV1Exchange}
+              />
+              <Route
+                exact
+                strict
+                path="/remove/:tokens"
+                component={RedirectOldRemoveLiquidityPathStructure}
+              />
+              <Route
+                exact
+                strict
+                path="/remove/:currencyIdA/:currencyIdB"
+                component={RemoveLiquidity}
+              />
               {/* <Route exact strict path="/migrate/v1" component={MigrateV1} /> */}
               {/* <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} /> */}
               {/* <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} /> */}
@@ -133,7 +194,7 @@ function App() {
         </BodyWrapper>
       </AppWrapper>
     </Suspense>
-  )
+  );
 }
 
-export default hot(module)(App)
+export default hot(module)(App);

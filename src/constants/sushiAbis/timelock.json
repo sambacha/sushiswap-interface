@@ -10,12 +10,42 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "txHash", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "target", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" },
-      { "indexed": false, "internalType": "string", "name": "signature", "type": "string" },
-      { "indexed": false, "internalType": "bytes", "name": "data", "type": "bytes" },
-      { "indexed": false, "internalType": "uint256", "name": "eta", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "txHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "signature",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eta",
+        "type": "uint256"
+      }
     ],
     "name": "CancelTransaction",
     "type": "event"
@@ -23,43 +53,124 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "txHash", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "target", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" },
-      { "indexed": false, "internalType": "string", "name": "signature", "type": "string" },
-      { "indexed": false, "internalType": "bytes", "name": "data", "type": "bytes" },
-      { "indexed": false, "internalType": "uint256", "name": "eta", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "txHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "signature",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eta",
+        "type": "uint256"
+      }
     ],
     "name": "ExecuteTransaction",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "address", "name": "newAdmin", "type": "address" }],
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
     "name": "NewAdmin",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "uint256", "name": "newDelay", "type": "uint256" }],
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "newDelay",
+        "type": "uint256"
+      }
+    ],
     "name": "NewDelay",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "address", "name": "newPendingAdmin", "type": "address" }],
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newPendingAdmin",
+        "type": "address"
+      }
+    ],
     "name": "NewPendingAdmin",
     "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "txHash", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "target", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" },
-      { "indexed": false, "internalType": "string", "name": "signature", "type": "string" },
-      { "indexed": false, "internalType": "bytes", "name": "data", "type": "bytes" },
-      { "indexed": false, "internalType": "uint256", "name": "eta", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "txHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "signature",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eta",
+        "type": "uint256"
+      }
     ],
     "name": "QueueTransaction",
     "type": "event"
@@ -85,7 +196,13 @@
     "stateMutability": "view",
     "type": "function"
   },
-  { "inputs": [], "name": "acceptAdmin", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "acceptAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [],
     "name": "admin",
@@ -161,14 +278,18 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "delay_", "type": "uint256" }],
+    "inputs": [
+      { "internalType": "uint256", "name": "delay_", "type": "uint256" }
+    ],
     "name": "setDelay",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "pendingAdmin_", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "pendingAdmin_", "type": "address" }
+    ],
     "name": "setPendingAdmin",
     "outputs": [],
     "stateMutability": "nonpayable",

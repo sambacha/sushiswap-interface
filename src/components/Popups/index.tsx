@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useActivePopups } from '../../state/application/hooks'
-import { AutoColumn } from '../Column'
-import PopupItem from './PopupItem'
-import { useURLWarningVisible } from '../../state/user/hooks'
+import React from 'react';
+import styled from 'styled-components';
+import { useActivePopups } from '../../state/application/hooks';
+import { AutoColumn } from '../Column';
+import PopupItem from './PopupItem';
+import { useURLWarningVisible } from '../../state/user/hooks';
 
 const MobilePopupWrapper = styled.div<{ height: string | number }>`
   position: relative;
@@ -16,7 +16,7 @@ const MobilePopupWrapper = styled.div<{ height: string | number }>`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: block;
   `};
-`
+`;
 
 const MobilePopupInner = styled.div`
   height: 99%;
@@ -28,7 +28,7 @@ const MobilePopupInner = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean }>`
   position: fixed;
@@ -41,19 +41,24 @@ const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean }>`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none;
   `};
-`
+`;
 
 export default function Popups() {
   // get all popups
-  const activePopups = useActivePopups()
+  const activePopups = useActivePopups();
 
-  const urlWarningActive = useURLWarningVisible()
+  const urlWarningActive = useURLWarningVisible();
 
   return (
     <>
       <FixedPopupColumn gap="20px" extraPadding={urlWarningActive}>
         {activePopups.map((item) => (
-          <PopupItem key={item.key} content={item.content} popKey={item.key} removeAfterMs={item.removeAfterMs} />
+          <PopupItem
+            key={item.key}
+            content={item.content}
+            popKey={item.key}
+            removeAfterMs={item.removeAfterMs}
+          />
         ))}
       </FixedPopupColumn>
       <MobilePopupWrapper height={activePopups?.length > 0 ? 'fit-content' : 0}>
@@ -62,10 +67,15 @@ export default function Popups() {
             .slice(0)
             .reverse()
             .map((item) => (
-              <PopupItem key={item.key} content={item.content} popKey={item.key} removeAfterMs={item.removeAfterMs} />
+              <PopupItem
+                key={item.key}
+                content={item.content}
+                popKey={item.key}
+                removeAfterMs={item.removeAfterMs}
+              />
             ))}
         </MobilePopupInner>
       </MobilePopupWrapper>
     </>
-  )
+  );
 }

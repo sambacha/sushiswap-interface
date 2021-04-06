@@ -12,8 +12,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "token", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "bridge", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "bridge",
+        "type": "address"
+      }
     ],
     "name": "LogBridgeSet",
     "type": "event"
@@ -21,12 +31,42 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "server", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "token0", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "token1", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amount0", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amount1", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amountSUSHI", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "server",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token0",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token1",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount0",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount1",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountSUSHI",
+        "type": "uint256"
+      }
     ],
     "name": "LogConvert",
     "type": "event"
@@ -34,8 +74,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "OwnershipTransferred",
     "type": "event"
@@ -48,13 +98,23 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "token", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "token", "type": "address" }
+    ],
     "name": "bridgeFor",
-    "outputs": [{ "internalType": "address", "name": "bridge", "type": "address" }],
+    "outputs": [
+      { "internalType": "address", "name": "bridge", "type": "address" }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
-  { "inputs": [], "name": "claimOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "claimOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [
       { "internalType": "address", "name": "token0", "type": "address" },
@@ -78,7 +138,13 @@
   {
     "inputs": [],
     "name": "factory",
-    "outputs": [{ "internalType": "contract IUniswapV2Factory", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "contract IUniswapV2Factory",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },

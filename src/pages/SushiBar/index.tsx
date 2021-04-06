@@ -1,37 +1,37 @@
-import React, { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 
 //import { WrapperNoPadding } from '../../components/swap/styleds'
 //import { useDarkModeManager } from '../../state/user/hooks'
-import AppBody from '../AppBody'
-import SaaveHeader from './SushiBarHeader'
-import { Wrapper } from '../../components/swap/styleds'
+import AppBody from '../AppBody';
+import SaaveHeader from './SushiBarHeader';
+import { Wrapper } from '../../components/swap/styleds';
 
-import SushiDepositPanel from './SushiDepositPanel'
-import XSushiWithdrawlPanel from './XSushiWithdrawlPanel'
+import SushiDepositPanel from './SushiDepositPanel';
+import XSushiWithdrawlPanel from './XSushiWithdrawlPanel';
 
-import { CardSection, DataCard } from '../../components/earn/styled'
-import { RowBetween } from '../../components/Row'
-import { AutoColumn } from '../../components/Column'
-import { TYPE, ExternalLink } from '../../theme'
-import { transparentize } from 'polished'
+import { CardSection, DataCard } from '../../components/earn/styled';
+import { RowBetween } from '../../components/Row';
+import { AutoColumn } from '../../components/Column';
+import { TYPE, ExternalLink } from '../../theme';
+import { transparentize } from 'polished';
 
-import { useActiveWeb3React } from '../../hooks'
+import { useActiveWeb3React } from '../../hooks';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 420px;
   width: 100%;
-`
+`;
 
 const VoteCard = styled(DataCard)`
   background: ${({ theme }) => transparentize(0.5, theme.bg1)};
   overflow: hidden;
   margin-bottom: 10px;
-`
+`;
 
 export default function Saave() {
-  const theme = useContext(ThemeContext)
-  const { account } = useActiveWeb3React()
+  const theme = useContext(ThemeContext);
+  const { account } = useActiveWeb3React();
   //const darkMode = useDarkModeManager()
 
   return (
@@ -47,10 +47,18 @@ export default function Saave() {
               </RowBetween>
               <RowBetween>
                 <div>
-                  <TYPE.white fontSize={14} color={theme.text2} style={{ paddingBottom: '10px' }}>
+                  <TYPE.white
+                    fontSize={14}
+                    color={theme.text2}
+                    style={{ paddingBottom: '10px' }}
+                  >
                     {`Stake your SUSHI into xSUSHI for ~5% APY. No impermanent loss, no loss of governance rights. Continuously compounding.`}
                   </TYPE.white>
-                  <TYPE.white fontSize={14} color={theme.text2} style={{ paddingBottom: '10px' }}>
+                  <TYPE.white
+                    fontSize={14}
+                    color={theme.text2}
+                    style={{ paddingBottom: '10px' }}
+                  >
                     {`xSUSHI automatically earn fees (0.05% of all swaps, including multichain swaps) proportional to your share of the SushiBar.`}
                   </TYPE.white>
                 </div>
@@ -61,7 +69,8 @@ export default function Saave() {
                 href="https://analytics.sushi.com/bar"
               >
                 <TYPE.white fontSize={14} color={theme.text1}>
-                  View SushiBar Stats <span style={{ fontSize: '11px' }}>↗</span>
+                  View SushiBar Stats{' '}
+                  <span style={{ fontSize: '11px' }}>↗</span>
                 </TYPE.white>
               </ExternalLink>
               {account && (
@@ -71,7 +80,8 @@ export default function Saave() {
                   href={'http://analytics.sushi.com/users/' + account}
                 >
                   <TYPE.white fontSize={14} color={theme.text1}>
-                    View your SushiBar Portfolio <span style={{ fontSize: '11px' }}>↗</span>
+                    View your SushiBar Portfolio{' '}
+                    <span style={{ fontSize: '11px' }}>↗</span>
                   </TYPE.white>
                 </ExternalLink>
               )}
@@ -103,5 +113,5 @@ export default function Saave() {
         </AppBody>
       </PageWrapper>
     </>
-  )
+  );
 }

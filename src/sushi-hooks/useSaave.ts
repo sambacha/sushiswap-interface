@@ -1,50 +1,59 @@
-import { useCallback, useEffect, useState } from 'react'
-import { ethers } from 'ethers'
-import { useSaaveContract, useSushiContract } from './useContract'
-import { useTransactionAdder } from '../state/transactions/hooks'
+import { useCallback, useEffect, useState } from 'react';
+import { ethers } from 'ethers';
+import { useSaaveContract, useSushiContract } from './useContract';
+import { useTransactionAdder } from '../state/transactions/hooks';
 
-import { useActiveWeb3React } from '../hooks'
-import { BalanceProps } from './queries/useTokenBalance'
-import Fraction from '../constants/Fraction'
-const { BigNumber } = ethers
+import { useActiveWeb3React } from '../hooks';
+import { BalanceProps } from './queries/useTokenBalance';
+import Fraction from '../constants/Fraction';
+const { BigNumber } = ethers;
 
 const useMaker = () => {
-  const { account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React();
 
-  const addTransaction = useTransactionAdder()
-  const sushiContract = useSushiContract(true) // withSigner
-  const saaveContract = useSaaveContract(true) // withSigner
+  const addTransaction = useTransactionAdder();
+  const sushiContract = useSushiContract(true); // withSigner
+  const saaveContract = useSaaveContract(true); // withSigner
 
   // Allowance
-  const [allowance, setAllowance] = useState('0')
+  const [allowance, setAllowance] = useState('0');
   const fetchAllowance = useCallback(async () => {
     if (account) {
       try {
-        const allowance = await sushiContract?.allowance(account, saaveContract?.address)
-        const formatted = Fraction.from(BigNumber.from(allowance), BigNumber.from(10).pow(18)).toString()
-        setAllowance(formatted)
+        const allowance = await sushiContract?.allowance(
+          account,
+          saaveContract?.address
+        );
+        const formatted = Fraction.from(
+          BigNumber.from(allowance),
+          BigNumber.from(10).pow(18)
+        ).toString();
+        setAllowance(formatted);
       } catch {
-        setAllowance('0')
+        setAllowance('0');
       }
     }
-  }, [account, saaveContract?.address, sushiContract])
+  }, [account, saaveContract?.address, sushiContract]);
   useEffect(() => {
     if (account && saaveContract && sushiContract) {
-      fetchAllowance()
+      fetchAllowance();
     }
-    const refreshInterval = setInterval(fetchAllowance, 10000)
-    return () => clearInterval(refreshInterval)
-  }, [account, fetchAllowance, saaveContract, sushiContract])
+    const refreshInterval = setInterval(fetchAllowance, 10000);
+    return () => clearInterval(refreshInterval);
+  }, [account, fetchAllowance, saaveContract, sushiContract]);
 
   // Approve
   const approve = useCallback(async () => {
     try {
-      const tx = await sushiContract?.approve(saaveContract?.address, ethers.constants.MaxUint256.toString())
-      return addTransaction(tx, { summary: 'Approve' })
+      const tx = await sushiContract?.approve(
+        saaveContract?.address,
+        ethers.constants.MaxUint256.toString()
+      );
+      return addTransaction(tx, { summary: 'Approve' });
     } catch (e) {
-      return e
+      return e;
     }
-  }, [addTransaction, saaveContract?.address, sushiContract])
+  }, [addTransaction, saaveContract?.address, sushiContract]);
 
   // Saave Sushi - xSUSHI - aXSUSHI
   const saave = useCallback(
@@ -59,17 +68,17 @@ const useMaker = () => {
         //   ethers.utils.parseUnits('1', amount?.decimals)
         // )
         try {
-          const tx = await saaveContract?.saave(amount?.value)
-          return addTransaction(tx, { summary: 'SUSHI → xSUSHI → aXSUSHI' })
+          const tx = await saaveContract?.saave(amount?.value);
+          return addTransaction(tx, { summary: 'SUSHI → xSUSHI → aXSUSHI' });
         } catch (e) {
-          return e
+          return e;
         }
       }
     },
     [addTransaction, saaveContract]
-  )
+  );
 
-  return { allowance, approve, saave }
-}
+  return { allowance, approve, saave };
+};
 
-export default useMaker
+export default useMaker;

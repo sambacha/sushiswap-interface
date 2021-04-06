@@ -1,41 +1,44 @@
-import { ChainId, TokenAmount, Currency } from '@sushiswap/sdk'
-import React, { useState } from 'react'
-import { Text } from 'rebass'
-import { NavLink } from 'react-router-dom'
-import { darken } from 'polished'
-import { useTranslation } from 'react-i18next'
+import { ChainId, TokenAmount, Currency } from '@sushiswap/sdk';
+import React, { useState } from 'react';
+import { Text } from 'rebass';
+import { NavLink } from 'react-router-dom';
+import { darken } from 'polished';
+import { useTranslation } from 'react-i18next';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 // import Logo from '../../assets/svg/logo.svg'
 // import LogoDark from '../../assets/svg/logo_white.svg'
 
-import Logo from '../../assets/images/logo.png'
-import LogoHover from '../../assets/svg/logo_hover.svg'
+import Logo from '../../assets/images/logo.png';
+import LogoHover from '../../assets/svg/logo_hover.svg';
 
-import { useActiveWeb3React } from '../../hooks'
-import { useDarkModeManager } from '../../state/user/hooks'
-import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
-import { CardNoise } from '../earn/styled'
-import { CountUp } from 'use-count-up'
-import { TYPE, ExternalLink } from '../../theme'
+import { useActiveWeb3React } from '../../hooks';
+import { useDarkModeManager } from '../../state/user/hooks';
+import {
+  useETHBalances,
+  useAggregateUniBalance,
+} from '../../state/wallet/hooks';
+import { CardNoise } from '../earn/styled';
+import { CountUp } from 'use-count-up';
+import { TYPE, ExternalLink } from '../../theme';
 
-import { YellowCard } from '../Card'
-import { Moon, Sun } from 'react-feather'
-import Menu from '../Menu'
+import { YellowCard } from '../Card';
+import { Moon, Sun } from 'react-feather';
+import Menu from '../Menu';
 
-import Row, { RowFixed } from '../Row'
-import Web3Status from '../Web3Status'
-import { Dots } from '../swap/styleds'
-import Modal from '../Modal'
-import UniBalanceContent from './UniBalanceContent'
-import usePrevious from '../../hooks/usePrevious'
-import LanguageSwitch from '../LanguageSwitch'
-import { StyledMenuButton } from 'components/StyledMenu'
+import Row, { RowFixed } from '../Row';
+import Web3Status from '../Web3Status';
+import { Dots } from '../swap/styleds';
+import Modal from '../Modal';
+import UniBalanceContent from './UniBalanceContent';
+import usePrevious from '../../hooks/usePrevious';
+import LanguageSwitch from '../LanguageSwitch';
+import { StyledMenuButton } from 'components/StyledMenu';
 
 const ExtendedStyledMenuButton = styled(StyledMenuButton)`
   margin-left: 8px;
-`
+`;
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -60,7 +63,7 @@ const HeaderFrame = styled.div`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
         padding: 0.5rem 1rem;
   `}
-`
+`;
 
 const HeaderControls = styled.div`
   display: flex;
@@ -88,7 +91,7 @@ const HeaderControls = styled.div`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     padding: 5px;
   `}
-`
+`;
 
 const HeaderElement = styled.div`
   display: flex;
@@ -107,18 +110,18 @@ const HeaderElement = styled.div`
       margin-left: 4px;
     }
   `};
-`
+`;
 
 const HeaderElementWrap = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const HeaderRow = styled(RowFixed)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
    width: 100%;
   `};
-`
+`;
 
 const HeaderLinks = styled(Row)`
   justify-content: center;
@@ -126,7 +129,7 @@ const HeaderLinks = styled(Row)`
     padding: 1rem 0 1rem 1rem;
     justify-content: flex-end;
 `};
-`
+`;
 
 const AccountElement = styled.div<{ active: boolean }>`
   display: flex;
@@ -141,7 +144,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   :focus {
     border: 1px solid blue;
   }
-`
+`;
 
 const UNIAmount = styled(AccountElement)`
   color: white;
@@ -149,8 +152,13 @@ const UNIAmount = styled(AccountElement)`
   height: 36px;
   font-weight: 500;
   background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #f537c3 0%, #00abff 100%), #edeef2;
-`
+  background: radial-gradient(
+      174.47% 188.91% at 1.84% 0%,
+      #f537c3 0%,
+      #00abff 100%
+    ),
+    #edeef2;
+`;
 
 const UNIWrapper = styled.span`
   width: fit-content;
@@ -164,13 +172,13 @@ const UNIWrapper = styled.span`
   :active {
     opacity: 0.9;
   }
-`
+`;
 
 const HideSmall = styled.span`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none;
   `};
-`
+`;
 
 const NetworkCard = styled(YellowCard)`
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -184,13 +192,13 @@ const NetworkCard = styled(YellowCard)`
     text-overflow: ellipsis;
     flex-shrink: 1;
   `};
-`
+`;
 
 const BalanceText = styled(Text)`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: none;
   `};
-`
+`;
 
 const Title = styled.a`
   display: flex;
@@ -204,7 +212,7 @@ const Title = styled.a`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
 const StaticIcon = styled.div`
   padding-left: 4px;
@@ -214,14 +222,14 @@ const StaticIcon = styled.div`
   :hover {
     opacity: 0;
   }
-`
+`;
 const HoverIcon = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-`
+`;
 
-const activeClassName = 'ACTIVE'
+const activeClassName = 'ACTIVE';
 
 const StyledNavLink = styled(NavLink).attrs({
   activeClassName,
@@ -248,7 +256,7 @@ const StyledNavLink = styled(NavLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
-`
+`;
 
 const StyledExternalLink = styled(ExternalLink).attrs({
   activeClassName,
@@ -279,7 +287,7 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
       display: none;
 `}
-`
+`;
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.RINKEBY]: 'Rinkeby',
@@ -300,26 +308,31 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.HECO_TESTNET]: 'HECO Testnet',
   [ChainId.HARMONY]: 'Harmony',
   [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
-}
+};
 
 export default function Header() {
-  const { account, chainId } = useActiveWeb3React()
-  const { t } = useTranslation()
+  const { account, chainId } = useActiveWeb3React();
+  const { t } = useTranslation();
 
-  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
+  const userEthBalance = useETHBalances(account ? [account] : [])?.[
+    account ?? ''
+  ];
   // const [isDark] = useDarkModeManager()
-  const [darkMode, toggleDarkMode] = useDarkModeManager()
+  const [darkMode, toggleDarkMode] = useDarkModeManager();
 
-  const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
+  const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance();
 
-  const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
+  const [showUniBalanceModal, setShowUniBalanceModal] = useState(false);
 
-  const countUpValue = aggregateBalance?.toFixed(0) ?? '0'
-  const countUpValuePrevious = usePrevious(countUpValue) ?? '0'
+  const countUpValue = aggregateBalance?.toFixed(0) ?? '0';
+  const countUpValuePrevious = usePrevious(countUpValue) ?? '0';
 
   return (
     <HeaderFrame>
-      <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
+      <Modal
+        isOpen={showUniBalanceModal}
+        onDismiss={() => setShowUniBalanceModal(false)}
+      >
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderRow>
@@ -365,7 +378,10 @@ export default function Header() {
             </StyledNavLink>
           )}
           {chainId && (
-            <StyledExternalLink id={`analytics-nav-link`} href={'https://analytics.sushi.com'}>
+            <StyledExternalLink
+              id={`analytics-nav-link`}
+              href={'https://analytics.sushi.com'}
+            >
               Analytics <span style={{ fontSize: '11px' }}>↗</span>
             </StyledExternalLink>
           )}
@@ -375,13 +391,21 @@ export default function Header() {
         <HeaderElement>
           <HideSmall>
             {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
+              <NetworkCard title={NETWORK_LABELS[chainId]}>
+                {NETWORK_LABELS[chainId]}
+              </NetworkCard>
             )}
           </HideSmall>
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && chainId && userEthBalance ? (
-              <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} {Currency.getNativeCurrencySymbol(chainId)}
+              <BalanceText
+                style={{ flexShrink: 0 }}
+                pl="0.75rem"
+                pr="0.5rem"
+                fontWeight={500}
+              >
+                {userEthBalance?.toSignificant(4)}{' '}
+                {Currency.getNativeCurrencySymbol(chainId)}
               </BalanceText>
             ) : null}
             <Web3Status />
@@ -396,5 +420,5 @@ export default function Header() {
         </HeaderElementWrap>
       </HeaderControls>
     </HeaderFrame>
-  )
+  );
 }

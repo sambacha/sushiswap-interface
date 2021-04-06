@@ -1,5 +1,5 @@
-import { ChainId } from '@sushiswap/sdk'
-import MULTICALL_ABI from './abi.json'
+import { ChainId } from '@sushiswap/sdk';
+import MULTICALL_ABI from './abi.json';
 
 const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441',
@@ -22,6 +22,6 @@ const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
   [ChainId.HECO_TESTNET]: '0x935Bfe9AfaA2Be26049ea4EDE40A3A2243361F87',
   [ChainId.HARMONY]: '0xFE4980f62D708c2A84D3929859Ea226340759320',
   [ChainId.HARMONY_TESTNET]: '0xbcd3451992B923531615293Cb2b2c38ba8DE9529',
-}
+};
 
-export { MULTICALL_ABI, MULTICALL_NETWORKS }
+export { MULTICALL_ABI, MULTICALL_NETWORKS };

@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { RowBetween } from '../Row'
-import { AutoColumn } from '../Column'
-import { transparentize } from 'polished'
+import React from 'react';
+import styled from 'styled-components';
+import { RowBetween } from '../Row';
+import { AutoColumn } from '../Column';
+import { transparentize } from 'polished';
 
-const Wrapper = styled(AutoColumn)``
+const Wrapper = styled(AutoColumn)``;
 
 const Grouping = styled(RowBetween)`
   width: 50%;
-`
+`;
 
 const Circle = styled.div<{ confirmed?: boolean; disabled?: boolean }>`
   min-width: 20px;
@@ -22,13 +22,13 @@ const Circle = styled.div<{ confirmed?: boolean; disabled?: boolean }>`
   justify-content: center;
   line-height: 8px;
   font-size: 12px;
-`
+`;
 
 const CircleRow = styled.div`
   width: calc(100% - 20px);
   display: flex;
   align-items: center;
-`
+`;
 
 const Connector = styled.div<{ prevConfirmed?: boolean; disabled?: boolean }>`
   width: 100%;
@@ -37,16 +37,20 @@ const Connector = styled.div<{ prevConfirmed?: boolean; disabled?: boolean }>`
   background: linear-gradient(
     90deg,
     ${({ theme, prevConfirmed, disabled }) =>
-        disabled ? theme.bg4 : transparentize(0.5, prevConfirmed ? theme.green1 : theme.primary1)}
+        disabled
+          ? theme.bg4
+          : transparentize(0.5, prevConfirmed ? theme.green1 : theme.primary1)}
       0%,
-    ${({ theme, prevConfirmed, disabled }) => (disabled ? theme.bg4 : prevConfirmed ? theme.primary1 : theme.bg4)} 80%
+    ${({ theme, prevConfirmed, disabled }) =>
+        disabled ? theme.bg4 : prevConfirmed ? theme.primary1 : theme.bg4}
+      80%
   );
   opacity: 0.6;
-`
+`;
 
 interface ProgressCirclesProps {
-  steps: boolean[]
-  disabled?: boolean
+  steps: boolean[];
+  disabled?: boolean;
 }
 
 /**
@@ -59,22 +63,31 @@ interface ProgressCirclesProps {
  *
  * @param steps  array of booleans where true means step is complete
  */
-export default function ProgressCircles({ steps, disabled = false, ...rest }: ProgressCirclesProps) {
+export default function ProgressCircles({
+  steps,
+  disabled = false,
+  ...rest
+}: ProgressCirclesProps) {
   return (
     <Wrapper justify={'center'} {...rest}>
       <Grouping>
         {steps.map((step, i) => {
           return (
             <CircleRow key={i}>
-              <Circle confirmed={step} disabled={disabled || (!steps[i - 1] && i !== 0)}>
+              <Circle
+                confirmed={step}
+                disabled={disabled || (!steps[i - 1] && i !== 0)}
+              >
                 {step ? '✓' : i + 1}
               </Circle>
               <Connector prevConfirmed={step} disabled={disabled} />
             </CircleRow>
-          )
+          );
         })}
-        <Circle disabled={disabled || !steps[steps.length - 1]}>{steps.length + 1}</Circle>
+        <Circle disabled={disabled || !steps[steps.length - 1]}>
+          {steps.length + 1}
+        </Circle>
       </Grouping>
     </Wrapper>
-  )
+  );
 }

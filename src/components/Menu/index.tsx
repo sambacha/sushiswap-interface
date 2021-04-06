@@ -1,21 +1,32 @@
-import React, { useRef } from 'react'
-import { BookOpen, Code, Info, MessageCircle, PieChart, Tool } from 'react-feather'
-import styled from 'styled-components'
-import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
-import { useActiveWeb3React } from '../../hooks'
-import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useToggleModal } from '../../state/application/hooks'
+import React, { useRef } from 'react';
+import {
+  BookOpen,
+  Code,
+  Info,
+  MessageCircle,
+  PieChart,
+  Tool,
+} from 'react-feather';
+import styled from 'styled-components';
+import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg';
+import { useActiveWeb3React } from '../../hooks';
+import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import { ApplicationModal } from '../../state/application/actions';
+import { useModalOpen, useToggleModal } from '../../state/application/hooks';
 
-import { ExternalLink, StyledInternalLink } from '../../theme'
-import { ButtonPrimary } from '../Button'
-import { MenuFlyout, StyledMenu, StyledMenuButton } from 'components/StyledMenu'
+import { ExternalLink, StyledInternalLink } from '../../theme';
+import { ButtonPrimary } from '../Button';
+import {
+  MenuFlyout,
+  StyledMenu,
+  StyledMenuButton,
+} from 'components/StyledMenu';
 
 const StyledMenuIcon = styled(MenuIcon)`
   path {
     stroke: ${({ theme }) => theme.text1};
   }
-`
+`;
 
 const MenuItem = styled(ExternalLink)`
   flex: 1;
@@ -29,7 +40,7 @@ const MenuItem = styled(ExternalLink)`
   > svg {
     margin-right: 8px;
   }
-`
+`;
 
 const MenuItemInternal = styled(StyledInternalLink)`
   flex: 1;
@@ -43,29 +54,29 @@ const MenuItemInternal = styled(StyledInternalLink)`
   > svg {
     margin-right: 8px;
   }
-`
+`;
 
 const ExtendedStyledMenuButton = styled(StyledMenuButton)`
   margin-right: 6px;
-`
+`;
 
 const ExtendedMenuFlyout = styled(MenuFlyout)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     top: -16.5rem;
     margin-right: 6px;
   `};
-`
+`;
 
-const CODE_LINK = 'https://github.com/sushiswap/sushiswap-interface'
+const CODE_LINK = 'https://github.com/sushiswap/sushiswap-interface';
 
 export default function Menu() {
-  const { account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React();
 
-  const node = useRef<HTMLDivElement>(null)
-  const open = useModalOpen(ApplicationModal.MENU)
-  const toggle = useToggleModal(ApplicationModal.MENU)
-  useOnClickOutside(node, open ? toggle : undefined)
-  const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
+  const node = useRef<HTMLDivElement>(null);
+  const open = useModalOpen(ApplicationModal.MENU);
+  const toggle = useToggleModal(ApplicationModal.MENU);
+  useOnClickOutside(node, open ? toggle : undefined);
+  const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM);
 
   return (
     <StyledMenu ref={node}>
@@ -107,5 +118,5 @@ export default function Menu() {
         </ExtendedMenuFlyout>
       )}
     </StyledMenu>
-  )
+  );
 }

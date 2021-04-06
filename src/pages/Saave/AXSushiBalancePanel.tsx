@@ -1,24 +1,25 @@
-import React, { useState, useCallback } from 'react'
-import { Currency, Pair } from '@sushiswap/sdk'
-import styled from 'styled-components'
-import { darken } from 'polished'
+import React, { useState, useCallback } from 'react';
+import { Currency, Pair } from '@sushiswap/sdk';
+import styled from 'styled-components';
+import { darken } from 'polished';
 
-import { RowBetween } from '../../components/Row'
-import { Input as NumericalInput } from '../../components/NumericalInput'
-import { TYPE } from '../../theme'
+import { RowBetween } from '../../components/Row';
+import { Input as NumericalInput } from '../../components/NumericalInput';
+import { TYPE } from '../../theme';
 
-import { useActiveWeb3React } from '../../hooks'
-import { useTranslation } from 'react-i18next'
-import useTheme from '../../hooks/useTheme'
+import { useActiveWeb3React } from '../../hooks';
+import { useTranslation } from 'react-i18next';
+import useTheme from '../../hooks/useTheme';
 
-import useTokenBalance from '../../sushi-hooks/queries/useTokenBalance'
-import { formatFromBalance } from '../../utils'
+import useTokenBalance from '../../sushi-hooks/queries/useTokenBalance';
+import { formatFromBalance } from '../../utils';
 
 const InputRow = styled.div<{ selected: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
-  padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
-`
+  padding: ${({ selected }) =>
+    selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem'};
+`;
 
 const LabelRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -31,13 +32,13 @@ const LabelRow = styled.div`
     cursor: pointer;
     color: ${({ theme }) => darken(0.2, theme.text2)};
   }
-`
+`;
 
 const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -45,20 +46,26 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
   background-color: ${({ theme }) => theme.bg2};
   z-index: 1;
-`
+`;
 
-const Container = styled.div<{ hideInput: boolean; cornerRadiusTopNone?: boolean; cornerRadiusBottomNone?: boolean }>`
+const Container = styled.div<{
+  hideInput: boolean;
+  cornerRadiusTopNone?: boolean;
+  cornerRadiusBottomNone?: boolean;
+}>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '12px')};
-  border-radius: ${({ cornerRadiusTopNone }) => cornerRadiusTopNone && '0 0 12px 12px'};
-  border-radius: ${({ cornerRadiusBottomNone }) => cornerRadiusBottomNone && '12px 12px 0 0'};
+  border-radius: ${({ cornerRadiusTopNone }) =>
+    cornerRadiusTopNone && '0 0 12px 12px'};
+  border-radius: ${({ cornerRadiusBottomNone }) =>
+    cornerRadiusBottomNone && '12px 12px 0 0'};
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: ${({ theme }) => theme.bg1};
-`
+`;
 
 const StyledButtonName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 auto;' : '  margin: 0 auto;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-`
+`;
 
 const StyledBalanceMax = styled.button`
   height: 28px;
@@ -82,20 +89,20 @@ const StyledBalanceMax = styled.button`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     margin-right: 0.5rem;
   `};
-`
+`;
 
 interface CurrencyInputPanelProps {
-  label?: string
-  lpTokenAddress?: string
-  disableCurrencySelect?: boolean
-  hideBalance?: boolean
-  pair?: Pair | null
-  hideInput?: boolean
-  id: string
-  customBalanceText?: string
-  buttonText?: string
-  cornerRadiusBottomNone?: boolean
-  cornerRadiusTopNone?: boolean
+  label?: string;
+  lpTokenAddress?: string;
+  disableCurrencySelect?: boolean;
+  hideBalance?: boolean;
+  pair?: Pair | null;
+  hideInput?: boolean;
+  id: string;
+  customBalanceText?: string;
+  buttonText?: string;
+  cornerRadiusBottomNone?: boolean;
+  cornerRadiusTopNone?: boolean;
 }
 
 export default function CurrencyInputPanel({
@@ -110,13 +117,18 @@ export default function CurrencyInputPanel({
   cornerRadiusBottomNone,
   cornerRadiusTopNone,
 }: CurrencyInputPanelProps) {
-  const { t } = useTranslation()
-  const { account } = useActiveWeb3React()
-  const theme = useTheme()
+  const { t } = useTranslation();
+  const { account } = useActiveWeb3React();
+  const theme = useTheme();
 
-  const aXSushiBalanceBigInt = useTokenBalance('0xF256CC7847E919FAc9B808cC216cAc87CCF2f47a')
-  const aXSushiBalance = formatFromBalance(aXSushiBalanceBigInt?.value, aXSushiBalanceBigInt?.decimals)
-  console.log('aXSushiBalance:', aXSushiBalance)
+  const aXSushiBalanceBigInt = useTokenBalance(
+    '0xF256CC7847E919FAc9B808cC216cAc87CCF2f47a'
+  );
+  const aXSushiBalance = formatFromBalance(
+    aXSushiBalanceBigInt?.value,
+    aXSushiBalanceBigInt?.decimals
+  );
+  console.log('aXSushiBalance:', aXSushiBalance);
 
   return (
     <>
@@ -136,15 +148,22 @@ export default function CurrencyInputPanel({
               </RowBetween>
             </LabelRow>
           )}
-          <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
+          <InputRow
+            style={hideInput ? { padding: '0', borderRadius: '8px' } : {}}
+            selected={disableCurrencySelect}
+          >
             {!hideInput && (
               <>
-                <NumericalInput className="token-amount-input" value={aXSushiBalance} onUserInput={() => null} />
+                <NumericalInput
+                  className="token-amount-input"
+                  value={aXSushiBalance}
+                  onUserInput={() => null}
+                />
               </>
             )}
           </InputRow>
         </Container>
       </InputPanel>
     </>
-  )
+  );
 }

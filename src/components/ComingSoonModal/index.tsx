@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react'
-import { TYPE } from 'theme'
-import Modal from '../Modal'
-import Row, { AutoRow, RowBetween } from 'components/Row'
-import Column, { AutoColumn } from 'components/Column'
-import styled from 'styled-components'
-import { X, PlusCircle } from 'react-feather'
-import ComingSoonImage from '../../assets/images/coming-soon.png'
-import BentoBox from '../../assets/images/bento-color.png'
-import Kashi from '../../assets/images/kashi-color-flat.png'
+import React, { useCallback, useState } from 'react';
+import { TYPE } from 'theme';
+import Modal from '../Modal';
+import Row, { AutoRow, RowBetween } from 'components/Row';
+import Column, { AutoColumn } from 'components/Column';
+import styled from 'styled-components';
+import { X, PlusCircle } from 'react-feather';
+import ComingSoonImage from '../../assets/images/coming-soon.png';
+import BentoBox from '../../assets/images/bento-color.png';
+import Kashi from '../../assets/images/kashi-color-flat.png';
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
   text-align: center;
-`
+`;
 
 const ModalUpper = styled(Column)`
   padding: 3rem 1rem 2rem;
@@ -21,12 +21,12 @@ const ModalUpper = styled(Column)`
   background-color: #18212e;
   background-image: linear-gradient(-55deg, #18212e 50%, #202d3e 50%);
   z-index: 0;
-`
+`;
 
 const ModalLower = styled(Column)`
   padding: 3rem 1rem;
   background: #222636;
-`
+`;
 
 const StyledClose = styled(X)`
   position: absolute;
@@ -36,7 +36,7 @@ const StyledClose = styled(X)`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
 const StyledPlus = styled(PlusCircle)`
   position: absolute;
@@ -49,7 +49,7 @@ const StyledPlus = styled(PlusCircle)`
   background: white;
   padding: 2px;
   color: grey;
-`
+`;
 
 const StyledComingSoon = styled.img`
   position: absolute;
@@ -58,12 +58,12 @@ const StyledComingSoon = styled.img`
   top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
-`
+`;
 
 export default function ComingSoonModal() {
-  const [isOpen, setIsOpen] = useState(!localStorage.getItem('seenComingSoon'))
+  const [isOpen, setIsOpen] = useState(!localStorage.getItem('seenComingSoon'));
   // const isOpen = false
-  const handleDismiss = useCallback(() => null, [])
+  const handleDismiss = useCallback(() => null, []);
   return (
     <Modal isOpen={isOpen} onDismiss={handleDismiss} maxHeight={90}>
       <Wrapper>
@@ -83,8 +83,8 @@ export default function ComingSoonModal() {
           <StyledClose
             stroke="gray"
             onClick={() => {
-              localStorage.setItem('seenComingSoon', 'true')
-              setIsOpen(false)
+              localStorage.setItem('seenComingSoon', 'true');
+              setIsOpen(false);
             }}
           />
           <StyledComingSoon src={ComingSoonImage} />
@@ -100,12 +100,13 @@ export default function ComingSoonModal() {
               <br /> gas-efficient manner.
             </TYPE.subHeader>
             <TYPE.white fontWeight={400}>
-              The first app in the BentoBox system is Kashi, a<br /> gas-optimised lending and margin trading platform
-              with risk-isolated pairs.
+              The first app in the BentoBox system is Kashi, a<br />{' '}
+              gas-optimised lending and margin trading platform with
+              risk-isolated pairs.
             </TYPE.white>
           </AutoRow>
         </ModalLower>
       </Wrapper>
     </Modal>
-  )
+  );
 }
