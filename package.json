@@ -107,6 +107,8 @@
     "serve": "^11.3.0",
     "start-server-and-test": "^1.11.0",
     "styled-components": "^4.2.0",
+    "stylelint": "^13.12.0",
+    "stylelint-no-unsupported-browser-features": "^4.1.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^3.8.3",
     "use-count-up": "^2.2.5",
@@ -118,7 +120,9 @@
   "scripts": {
     "start": "cross-env PORT=3000 react-app-rewired start",
     "dev": "cross-env PORT=3001 react-app-rewired start",
-    "build": "cross-env CI= GENERATE_SOURCEMAP=false react-app-rewired build",
+    "lint:css": "stylelint src/*.css",
+    "prod": "cross-env CI='' NODE_ENV=production GENERATE_SOURCEMAP=false react-app-rewired build",
+    "build": "cross-env CI='' GENERATE_SOURCEMAP=false react-app-rewired build",
     "eject": "react-app-rewired eject",
     "test": "react-app-rewired test --env=jsdom",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'"
@@ -134,7 +138,7 @@
       ">0.3%",
       "not dead",
       "not op_mini all",
-     "not IE > 0"
+      "not IE > 0"
     ],
     "development": [
       "last 1 chrome version",
@@ -142,6 +146,15 @@
       "last 1 safari version"
     ]
   },
+ "stylelint": {
+   "plugins": [
+     "stylelint-no-unsupported-browser-features"
+   ],
+   "rules": {
+     "plugin/no-unsupported-browser-features": true
+   },
+   "defaultSeverity": "warning"
+ },
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@types/numeral": "^2.0.1",
