@@ -108,7 +108,7 @@ export default function CurrencyInputPanel({
   customBalanceText,
   buttonText,
   cornerRadiusBottomNone,
-  cornerRadiusTopNone
+  cornerRadiusTopNone,
 }: CurrencyInputPanelProps) {
   const { t } = useTranslation()
   const { account } = useActiveWeb3React()

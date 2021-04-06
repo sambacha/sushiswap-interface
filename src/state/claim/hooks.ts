@@ -31,8 +31,8 @@ function fetchClaim(account: string, chainId: ChainId): Promise<UserClaimData | 
   return (CLAIM_PROMISES[key] =
     CLAIM_PROMISES[key] ??
     fetch(MERKLE_ROOT)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const claim: typeof data.claims[0] | undefined = data.claims[account] ?? undefined
         if (!claim) return null
 
@@ -40,10 +40,10 @@ function fetchClaim(account: string, chainId: ChainId): Promise<UserClaimData | 
         return {
           index: claim.index,
           amount: claim.amount,
-          proof: claim.proof
+          proof: claim.proof,
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       }))
 }
@@ -58,12 +58,12 @@ export function useUserClaimData(account: string | null | undefined): UserClaimD
 
   useEffect(() => {
     if (!account || !chainId) return
-    fetchClaim(account, chainId).then(accountClaimInfo =>
-      setClaimInfo(claimInfo => {
+    fetchClaim(account, chainId).then((accountClaimInfo) =>
+      setClaimInfo((claimInfo) => {
         //console.log('claimInfo:', claimInfo, accountClaimInfo, key)
         return {
           ...claimInfo,
-          [key]: accountClaimInfo
+          [key]: accountClaimInfo,
         }
       })
     )
@@ -115,18 +115,18 @@ export function useClaimCallback(
   const addTransaction = useTransactionAdder()
   const distributorContract = useMerkleDistributorContract()
 
-  const claimCallback = async function() {
+  const claimCallback = async function () {
     if (!claimData || !account || !library || !chainId || !distributorContract) return
 
     const args = [claimData.index, account, claimData.amount, claimData.proof]
 
-    return distributorContract.estimateGas['claim'](...args, {}).then(estimatedGasLimit => {
+    return distributorContract.estimateGas['claim'](...args, {}).then((estimatedGasLimit) => {
       return distributorContract
         .claim(...args, { value: null, gasLimit: calculateGasMargin(estimatedGasLimit) })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Claimed ${unClaimedAmount?.toSignificant(4)} SUSHI`,
-            claim: { recipient: account }
+            claim: { recipient: account },
           })
           return response.hash
         })

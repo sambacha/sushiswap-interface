@@ -46,19 +46,19 @@ const sheen = keyframes`{
 
 export const ButtonPrimary = styled(Base)`
   /* background-color: ${({ theme }) => theme.primary1}; */
-  overflow:hidden;
-  background: linear-gradient(to right, #0094ec , #f537c3);
+  overflow: hidden;
+  background: linear-gradient(to right, #0094ec, #f537c3);
   background-origin: border-box;
   color: white;
   &:focus {
     box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
     /*background: ${({ theme }) => darken(0.05, theme.primary1)};*/
-    background: linear-gradient(to right, #0094ec , #f537c3);
+    background: linear-gradient(to right, #0094ec, #f537c3);
   }
   &:active {
     box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.primary1)};
     /*background: ${({ theme }) => darken(0.1, theme.primary1)};*/
-    background: linear-gradient(to right, #0094ec , #f537c3);
+    background: linear-gradient(to right, #0094ec, #f537c3);
   }
   &:disabled {
     pointer-events: none;
@@ -74,13 +74,13 @@ export const ButtonPrimary = styled(Base)`
   }
   &:hover {
     /*background: ${({ theme }) => darken(0.05, theme.primary1)};*/
-    background: linear-gradient(to right, #0094ec , #f537c3);
+    background: linear-gradient(to right, #0094ec, #f537c3);
     background-origin: border-box;
     &::after {
       animation: ${sheen} 0.5s forwards;
     }
   }
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -88,7 +88,12 @@ export const ButtonPrimary = styled(Base)`
     right: -50%;
     bottom: -50%;
     left: -120%;
-    background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+    background: linear-gradient(
+      to bottom,
+      rgba(229, 172, 142, 0),
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(229, 172, 142, 0)
+    );
     transform: rotateZ(60deg) translate(-5em, 7.5em);
   }
 `

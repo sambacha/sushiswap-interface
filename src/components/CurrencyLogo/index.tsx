@@ -49,13 +49,13 @@ const logo: { readonly [chainId in ChainId]?: string } = {
   [ChainId.HECO]: HecoLogo,
   [ChainId.HECO_TESTNET]: HecoLogo,
   [ChainId.HARMONY]: HarmonyLogo,
-  [ChainId.HARMONY_TESTNET]: HarmonyLogo
+  [ChainId.HARMONY_TESTNET]: HarmonyLogo,
 }
 
 export default function CurrencyLogo({
   currency,
   size = '24px',
-  style
+  style,
 }: {
   currency?: Currency
   size?: string

@@ -11,9 +11,9 @@ export function useAllPendingSushi() {
 
   const args = useMemo(
     () =>
-      [...Array(!numberOfPools.loading ? numberOfPools?.result?.[0].toNumber() : 0).keys()].map(pid => [
+      [...Array(!numberOfPools.loading ? numberOfPools?.result?.[0].toNumber() : 0).keys()].map((pid) => [
         String(pid),
-        String(account)
+        String(account),
       ]),
     [numberOfPools, account]
   )

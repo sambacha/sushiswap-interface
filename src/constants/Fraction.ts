@@ -40,24 +40,15 @@ class Fraction {
   }
 
   eq(fraction: Fraction) {
-    return this.numerator
-      .mul(fraction.denominator)
-      .div(fraction.numerator)
-      .eq(this.denominator)
+    return this.numerator.mul(fraction.denominator).div(fraction.numerator).eq(this.denominator)
   }
 
   gt(fraction: Fraction) {
-    return this.numerator
-      .mul(fraction.denominator)
-      .div(fraction.numerator)
-      .gt(this.denominator)
+    return this.numerator.mul(fraction.denominator).div(fraction.numerator).gt(this.denominator)
   }
 
   lt(fraction: Fraction) {
-    return this.numerator
-      .mul(fraction.denominator)
-      .div(fraction.numerator)
-      .lt(this.denominator)
+    return this.numerator.mul(fraction.denominator).div(fraction.numerator).lt(this.denominator)
   }
 
   toString(maxFractions = 8) {

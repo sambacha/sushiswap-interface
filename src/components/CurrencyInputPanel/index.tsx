@@ -96,7 +96,6 @@ const Container = styled.div<{
 const StyledTokenName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-
 `
 
 const StyledBalanceMax = styled.button`
@@ -164,7 +163,7 @@ export default function CurrencyInputPanel({
   customBalanceText,
   cornerRadiusBottomNone,
   cornerRadiusTopNone,
-  containerBackground
+  containerBackground,
 }: CurrencyInputPanelProps) {
   const { t } = useTranslation()
 
@@ -213,7 +212,7 @@ export default function CurrencyInputPanel({
               <NumericalInput
                 className="token-amount-input"
                 value={value}
-                onUserInput={val => {
+                onUserInput={(val) => {
                   onUserInput(val)
                 }}
               />

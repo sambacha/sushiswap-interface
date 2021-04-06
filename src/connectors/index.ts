@@ -29,12 +29,12 @@ const RPC = {
   [ChainId.HECO]: 'https://http-mainnet.hecochain.com',
   [ChainId.HECO_TESTNET]: 'https://http-testnet.hecochain.com',
   [ChainId.HARMONY]: 'https://explorer.harmony.one',
-  [ChainId.HARMONY_TESTNET]: 'https://explorer.pops.one'
+  [ChainId.HARMONY_TESTNET]: 'https://explorer.pops.one',
 }
 
 export const network = new NetworkConnector({
   defaultChainId: 1,
-  urls: RPC
+  urls: RPC,
 })
 
 let networkLibrary: Web3Provider | undefined
@@ -62,47 +62,47 @@ export const injected = new InjectedConnector({
     128, // heco
     256, // heco testnet
     1666600000, // harmony
-    1666700000 // harmony testnet
-  ]
+    1666700000, // harmony testnet
+  ],
 })
 
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
   rpc: {
-    [ChainId.MAINNET]: RPC[ChainId.MAINNET]
+    [ChainId.MAINNET]: RPC[ChainId.MAINNET],
   },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
-  pollingInterval: 15000
+  pollingInterval: 15000,
 })
 
 // mainnet only
 export const lattice = new LatticeConnector({
   chainId: 1,
   url: RPC[ChainId.MAINNET],
-  appName: 'SushiSwap'
+  appName: 'SushiSwap',
 })
 
 // mainnet only
 export const fortmatic = new FortmaticConnector({
   apiKey: process.env.REACT_APP_FORTMATIC_API_KEY ?? '',
-  chainId: 1
+  chainId: 1,
 })
 
 // mainnet only
 export const portis = new PortisConnector({
   dAppId: process.env.REACT_APP_PORTIS_ID ?? '',
-  networks: [1]
+  networks: [1],
 })
 
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: RPC[ChainId.MAINNET],
   appName: 'SushiSwap',
-  appLogoUrl: 'https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png'
+  appLogoUrl: 'https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png',
 })
 
 // mainnet only
 export const torus = new TorusConnector({
-  chainId: 1
+  chainId: 1,
 })

@@ -20,11 +20,7 @@ const useAllPending = () => {
       .map((p: any) => p.pendingSushi)
       .reduce((a: any, b: any) => BigNumber.from(a).add(BigNumber.from(b)), BigNumber.from(0))
 
-    setBalance(
-      BigNumber.from(allPending)
-        .div(BigNumber.from(10).pow(18))
-        .toNumber()
-    )
+    setBalance(BigNumber.from(allPending).div(BigNumber.from(10).pow(18)).toNumber())
   }, [account, masterChefContract, pendingContract])
 
   useEffect(() => {

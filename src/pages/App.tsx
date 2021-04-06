@@ -17,7 +17,7 @@ import AddLiquidity from './AddLiquidity'
 import {
   RedirectDuplicateTokenIds,
   RedirectOldAddLiquidityPathStructure,
-  RedirectToAddLiquidity
+  RedirectToAddLiquidity,
 } from './AddLiquidity/redirects'
 //import Earn from './Earn'
 //import Manage from './Earn/Manage'

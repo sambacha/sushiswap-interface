@@ -31,7 +31,7 @@ import {
   BAR_ADDRESS,
   MAKER_ADDRESS,
   TIMELOCK_ADDRESS,
-  ROUTER_ADDRESS
+  ROUTER_ADDRESS,
 } from '@sushiswap/sdk'
 
 // returns null on errors

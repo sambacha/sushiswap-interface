@@ -18,7 +18,7 @@ export const toK = (num: string) => {
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
-  minimumFractionDigits: 2
+  minimumFractionDigits: 2,
 })
 
 export const formattedNum = (number: any, usd = false) => {
@@ -221,7 +221,7 @@ const builders = {
       default:
         return `${prefix}/${type}/${data}`
     }
-  }
+  },
 }
 
 interface ChainObject {
@@ -234,84 +234,84 @@ interface ChainObject {
 const chains: ChainObject = {
   [ChainId.MAINNET]: {
     chainName: '',
-    builder: builders.etherscan
+    builder: builders.etherscan,
   },
   [ChainId.ROPSTEN]: {
     chainName: 'ropsten',
-    builder: builders.etherscan
+    builder: builders.etherscan,
   },
   [ChainId.RINKEBY]: {
     chainName: 'rinkeby',
-    builder: builders.etherscan
+    builder: builders.etherscan,
   },
   [ChainId.GÖRLI]: {
     chainName: 'goerli',
-    builder: builders.etherscan
+    builder: builders.etherscan,
   },
   [ChainId.KOVAN]: {
     chainName: 'kovan',
-    builder: builders.etherscan
+    builder: builders.etherscan,
   },
   [ChainId.MATIC]: {
     chainName: 'mainnet',
-    builder: builders.matic
+    builder: builders.matic,
   },
   [ChainId.MATIC_TESTNET]: {
     chainName: 'mumbai',
-    builder: builders.matic
+    builder: builders.matic,
   },
   [ChainId.FANTOM]: {
     chainName: '',
-    builder: builders.fantom
+    builder: builders.fantom,
   },
   [ChainId.FANTOM_TESTNET]: {
     chainName: 'testnet',
-    builder: builders.fantom
+    builder: builders.fantom,
   },
   [ChainId.XDAI]: {
     chainName: 'xdai',
-    builder: builders.xdai
+    builder: builders.xdai,
   },
   [ChainId.BSC]: {
     chainName: '',
-    builder: builders.bscscan
+    builder: builders.bscscan,
   },
   [ChainId.BSC_TESTNET]: {
     chainName: 'testnet',
-    builder: builders.bscscan
+    builder: builders.bscscan,
   },
   [ChainId.ARBITRUM]: {
     chainName: 'arbitrum',
-    builder: builders.arbitrum
+    builder: builders.arbitrum,
   },
   [ChainId.MOONBASE]: {
     chainName: '',
-    builder: builders.moonbase
+    builder: builders.moonbase,
   },
   [ChainId.AVALANCHE]: {
     chainName: '',
-    builder: builders.avalanche
+    builder: builders.avalanche,
   },
   [ChainId.FUJI]: {
     chainName: 'test',
-    builder: builders.avalanche
+    builder: builders.avalanche,
   },
   [ChainId.HECO]: {
     chainName: '',
-    builder: builders.heco
+    builder: builders.heco,
   },
   [ChainId.HECO_TESTNET]: {
     chainName: 'testnet',
-    builder: builders.heco
+    builder: builders.heco,
   },
   [ChainId.HARMONY]: {
     chainName: '',
-    builder: builders.harmony
+    builder: builders.harmony,
   },
   [ChainId.HARMONY_TESTNET]: {
     chainName: '',
-    builder: builders.harmonyTestnet
-  }
+    builder: builders.harmonyTestnet,
+  },
 }
 
 export function getExplorerLink(
@@ -348,7 +348,7 @@ export function calculateSlippageAmount(value: CurrencyAmount, slippage: number)
   }
   return [
     JSBI.divide(JSBI.multiply(value.raw, JSBI.BigInt(10000 - slippage)), JSBI.BigInt(10000)),
-    JSBI.divide(JSBI.multiply(value.raw, JSBI.BigInt(10000 + slippage)), JSBI.BigInt(10000))
+    JSBI.divide(JSBI.multiply(value.raw, JSBI.BigInt(10000 + slippage)), JSBI.BigInt(10000)),
   ]
 }
 

@@ -88,7 +88,7 @@ export default function ClaimModal() {
     setAttempting(true)
     claimCallback()
       // reset modal and log error
-      .catch(error => {
+      .catch((error) => {
         setAttempting(false)
         console.log(error)
       })
@@ -109,15 +109,15 @@ export default function ClaimModal() {
     const fetchLockup = async () => {
       if (account) {
         fetch('https://raw.githubusercontent.com/sushiswap/sushi-vesting/master/amounts-10959148-12171394.json')
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             //console.log('vesting:', data)
             const userLockedAmount = data[account.toLowerCase()] ? data[account.toLowerCase()] : '0'
             const userLocked = Fraction.from(BigNumber.from(userLockedAmount), BigNumber.from(10).pow(18)).toString()
             setTotalLocked(userLocked)
             //console.log('userLocked:', userLocked)
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error)
           })
       }

@@ -13,7 +13,7 @@ export function PoolPriceBar({
   currencies,
   noLiquidity,
   poolTokenPercentage,
-  price
+  price,
 }: {
   currencies: { [field in Field]?: Currency }
   noLiquidity?: boolean

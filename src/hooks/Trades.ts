@@ -34,7 +34,7 @@ function generateAllRoutePairs(tokenA?: Token, tokenB?: Token, chainId?: ChainId
     // token B against all bases
     ...allBases.map((base): [Token | undefined, Token] => [tokenB, base]),
     // each base against all bases
-    ...basePairs
+    ...basePairs,
   ]
     .filter((tokens): tokens is [Token, Token] => Boolean(tokens[0] && tokens[1]))
     .filter(([t0, t1]) => t0.address !== t1.address)
@@ -48,8 +48,8 @@ function generateAllRoutePairs(tokenA?: Token, tokenB?: Token, chainId?: ChainId
 
       if (!restrictedBasesA && !restrictedBasesB) return true
 
-      if (restrictedBasesA && !restrictedBasesA.find(base => tokenB.equals(base))) return false
-      if (restrictedBasesB && !restrictedBasesB.find(base => tokenA.equals(base))) return false
+      if (restrictedBasesA && !restrictedBasesA.find((base) => tokenB.equals(base))) return false
+      if (restrictedBasesB && !restrictedBasesB.find((base) => tokenA.equals(base))) return false
 
       return true
     })
@@ -65,7 +65,7 @@ function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
   const allPairCombinations: [Token, Token][] = useMemo(() => generateAllRoutePairs(tokenA, tokenB, chainId), [
     tokenA,
     tokenB,
-    chainId
+    chainId,
   ])
 
   const allPairs = usePairs(allPairCombinations)

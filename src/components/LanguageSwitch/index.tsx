@@ -66,51 +66,51 @@ const MenuButtonFlag = styled.img`
 const LANGUAGES: { [x: string]: { flag: string; language: string; dialect?: string } } = {
   en: {
     flag: EnFlag,
-    language: 'English'
+    language: 'English',
   },
   de: {
     flag: DeFlag,
-    language: 'German'
+    language: 'German',
   },
   'it-IT': {
     flag: ItFlag,
-    language: 'Italian'
+    language: 'Italian',
   },
   iw: {
     flag: IwFlag,
-    language: 'Hebrew'
+    language: 'Hebrew',
   },
   ru: {
     flag: RuFlag,
-    language: 'Russian'
+    language: 'Russian',
   },
   ro: {
     flag: RoFlag,
-    language: 'Romanian'
+    language: 'Romanian',
   },
   vi: {
     flag: ViFlag,
-    language: 'Vietnamese'
+    language: 'Vietnamese',
   },
   'zh-CN': {
     flag: ChFlag,
     language: 'Chinese',
-    dialect: '简'
+    dialect: '简',
   },
   'zh-TW': {
     flag: ChFlag,
     language: 'Chinese',
-    dialect: '繁'
+    dialect: '繁',
   },
   'es-US': {
     flag: EsFlag,
-    language: 'Spanish'
+    language: 'Spanish',
   },
   'es-AR': {
     flag: EsFlag,
     language: 'Spanish',
-    dialect: 'AR'
-  }
+    dialect: 'AR',
+  },
 }
 
 function LanguageSwitch() {

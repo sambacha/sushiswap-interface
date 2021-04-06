@@ -140,7 +140,7 @@ export default function CurrencyInputPanel({
   customBalanceText,
   buttonText,
   cornerRadiusBottomNone,
-  cornerRadiusTopNone
+  cornerRadiusTopNone,
 }: CurrencyInputPanelProps) {
   const { t } = useTranslation()
   const { account } = useActiveWeb3React()
@@ -221,7 +221,7 @@ export default function CurrencyInputPanel({
                 <NumericalInput
                   className="token-amount-input"
                   value={depositValue}
-                  onUserInput={val => {
+                  onUserInput={(val) => {
                     onUserDepositInput(val)
                   }}
                 />

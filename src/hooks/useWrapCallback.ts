@@ -9,7 +9,7 @@ import { useWETHContract } from './useContract'
 export enum WrapType {
   NOT_APPLICABLE,
   WRAP,
-  UNWRAP
+  UNWRAP,
 }
 
 const NOT_APPLICABLE = { wrapType: WrapType.NOT_APPLICABLE }
@@ -47,14 +47,14 @@ export default function useWrapCallback(
                   addTransaction(txReceipt, {
                     summary: `Wrap ${inputAmount.toSignificant(6)} ${Currency.getNativeCurrencySymbol(
                       chainId
-                    )} to W${Currency.getNativeCurrencySymbol(chainId)}`
+                    )} to W${Currency.getNativeCurrencySymbol(chainId)}`,
                   })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : `Insufficient ${Currency.getNativeCurrencySymbol(chainId)} balance`
+        inputError: sufficientBalance ? undefined : `Insufficient ${Currency.getNativeCurrencySymbol(chainId)} balance`,
       }
     } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER) {
       return {
@@ -67,14 +67,14 @@ export default function useWrapCallback(
                   addTransaction(txReceipt, {
                     summary: `Unwrap ${inputAmount.toSignificant(6)} W${Currency.getNativeCurrencySymbol(
                       chainId
-                    )} to ${Currency.getNativeCurrencySymbol(chainId)}`
+                    )} to ${Currency.getNativeCurrencySymbol(chainId)}`,
                   })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : 'Insufficient WETH balance'
+        inputError: sufficientBalance ? undefined : 'Insufficient WETH balance',
       }
     } else {
       return NOT_APPLICABLE

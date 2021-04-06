@@ -224,7 +224,7 @@ const HoverIcon = styled.div`
 const activeClassName = 'ACTIVE'
 
 const StyledNavLink = styled(NavLink).attrs({
-  activeClassName
+  activeClassName,
 })`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: left;
@@ -251,7 +251,7 @@ const StyledNavLink = styled(NavLink).attrs({
 `
 
 const StyledExternalLink = styled(ExternalLink).attrs({
-  activeClassName
+  activeClassName,
 })<{ isActive?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: left;
@@ -299,7 +299,7 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.HECO]: 'HECO',
   [ChainId.HECO_TESTNET]: 'HECO Testnet',
   [ChainId.HARMONY]: 'Harmony',
-  [ChainId.HARMONY_TESTNET]: 'Harmony Testnet'
+  [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
 }
 
 export default function Header() {
