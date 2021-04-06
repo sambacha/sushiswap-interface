@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-
+*.zip
+*.tar.gz
+*.tar
+*.tgz
 # dependencies
 /node_modules
 
