@@ -16,19 +16,6 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Get npm cache directory
-        id: get-npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-
-      - name: Get npm cache directory path
-        uses: actions/cache@v2.1.4
-        id: npm-cache # use this to check for `cache-hit` (`steps.npm-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: webpage install, build, and test
         uses: actions/setup-node@v2.1.5
