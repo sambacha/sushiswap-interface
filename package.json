@@ -26,7 +26,10 @@
     "test": "react-app-rewired test --env=jsdom",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'"
   },
-  "eslintConfig": {
+"resolutions": {
+"multibase": "git+https://github.com/sambacha/js-multibase"
+}, 
+ "eslintConfig": {
     "extends": "react-app",
     "ignorePatterns": [
       "node_modules"
