@@ -13,7 +13,7 @@ ENV NODE_ENV=${NODE_ENV}
 RUN mkdir -p /app
 
 
-COPY package-lock.json /app
+COPY yarn.lock /app
 COPY package.json /app
 
 ADD . /app
