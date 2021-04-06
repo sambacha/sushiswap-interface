@@ -12,8 +12,6 @@ ENV NODE_ENV=${NODE_ENV}
 #ARG BLOCK_TIME
 #ENV BLOCK_TIME=${BLOCK_TIME}
 RUN mkdir -p /app
-RUN npm i -g yarn
-RUN yarn --version
 
 COPY yarn.lock /app
 COPY package.json /app

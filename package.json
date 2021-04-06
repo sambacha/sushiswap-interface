@@ -31,7 +31,6 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "luxon": "^1.25.0",
     "multicodec": "^2.0.0",
-    "multihashes": "^3.0.1",
     "node-vibrant": "^3.1.5",
     "prettier": "^2.1.0",
     "serve": "^11.3.0",
@@ -158,6 +157,7 @@
     "styled-components": "^4.2.0",
     "swr": "^0.5.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "multihashes": "^3.0.1",
     "typescript": "^3.8.3",
     "use-count-up": "^2.2.5",
     "wcag-contrast": "^3.0.0"
